@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css"/>
+<script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="/webjars/font-awesome/css/font-awesome.min.css"></link>
+<title>Editar Usuario</title>
+</head>
+<body>
+<h2 class="col-xs-12" style="text-align: center;" th:if="${usuario.username != null}" th:text="${usuario.username}"></h2>
+<h2 class="col-xs-12" style="text-align: center;" th:if="${usuario.username == null}">Nuevo Usuario</h2>
+<div class="panel panel-default col-xs-11" style="margin: 20px; font-size: 20px">
+	<div class="panel-body">
+	<form id="form" action="#" th:action="@{/guardar-usuario}" th:object="${usuario}" method="post">
+		<input type="hidden" th:field="*{id}"/>
+		<div class="col-xs-4 form-group">
+			Usuario:
+			<input type="text" th:field="*{username}"/>
+		</div>
+		<div class="col-xs-4 form-group">
+			Contraseña:
+			<input type="text" th:field="*{pass}"/>
+		</div>
+		<button type="submit" style="float: right;" class="btn btn-lg btn-primary">Guardar</button>
+	</form>
+	</div>
+	<div>
+ 	<a href="http://localhost:8081/inicial">Volver</a>
+ 	</div>
+</div>
+</body>
+<script type="text/javascript">
+    function nuevoUsuario(id){
+		window.location.href = "http://localhost:8081/usuarios";
+	}
+</script>
+</html>

@@ -1,0 +1,9 @@
+com\example\TpSeminarioApplication.class
+com\example\Comprobante.class
+com\example\Proveedor.class
+com\example\ComprobanteRepository.class
+com\example\Controlador.class
+com\example\Usuario.class
+com\example\ProveedorRepository.class
+com\example\FiltroComprobantes.class
+com\example\UsuarioRepository.class

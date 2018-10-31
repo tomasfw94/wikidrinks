@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css"/>
+<script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+<style> input{width:500px}</style>
+<link rel="stylesheet" href="/webjars/font-awesome/css/font-awesome.min.css"></link>
+<title>Editar Proveedor</title>
+</head>
+<body>
+<h2 class="col-xs-12" style="text-align: center;" th:if="${proveedor.nombre != null}" th:text="${proveedor.nombre}"></h2>
+<h2 class="col-xs-12" style="text-align: center;" th:if="${proveedor.nombre == null}">NUEVO PROVEEDOR</h2>
+<div class="panel panel-default col-xs-11" style="margin: 20px; font-size: 20px">
+	<div class="panel-body">
+	<form id="form" action="#" th:action="@{/guardar-proveedor}" th:object="${proveedor}" method="post">
+		<input type="hidden" th:field="*{id}"/>
+		<div class="col-xs-12 form-group">
+			CUIT:
+			<input type="text" th:field="${proveedor.cuit}"/>
+		</div>
+		<div class="col-xs-12 form-group">
+			Razón Social:
+			<input type="text" th:field="*{razonSocial}"/>
+		</div>
+		<div class="col-xs-12 form-group">
+			Nombre
+			<input type="text" th:field="*{nombre}"/>
+		</div>
+		<div class="col-xs-12 form-group">
+			Telefono:
+			<input type="text" th:field="*{telefono}"/>
+		</div>
+		<div class="col-xs-12 form-group">
+			Email:
+			<input type="text" th:field="*{email}" />
+		</div>
+		<button type="submit" style="float: right;" class="btn btn-lg btn-primary">Guardar</button>
+	</form>
+	</div>
+	<div>
+ 	  <a href="http://localhost:8081/inicial">Volver</a>
+ 	</div>
+</div>
+</body>
+</html>

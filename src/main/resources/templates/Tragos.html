@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css"/>
+	<script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+	<script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="/webjars/font-awesome/css/font-awesome.min.css"></link>
+	<link rel="icon" href="https://banner2.kisspng.com/20180402/cyw/kisspng-bourbon-whiskey-old-fashioned-scotch-whisky-jameso-whiskey-5ac2b4cf8eb666.1018153215227097115846.jpg"></link>
+	<title>Wikidrinks - Tragos</title>
+</head>
+<body>
+	<h2 class="col-xs-12" style="text-align: center;">TRAGOS</h2>
+	<div class="panel panel-default col-xs-11" style="margin: 20px; font-size: 20px">
+		<div class="panel-body col-xs-12">
+		<form id="form">
+			Nombre: 
+			<input type="text" name="nombre"/>
+			Graduación:
+			<input type="text" name="cuit"/>
+			Puntuación:
+			<input type="text" name="fecha"/>
+			<div class="col-xs-4 col-xs-offset-8 row">
+				<span onclick="filtrar();" class="btn btn-primary" style="margin-right: 45px; margin-left: 10px">Filtrar</span>
+				<span onclick="volverHome()" class="btn btn-success">Volver</span>
+			</div>
+		</form>
+		</div>
+	</div>
+	<div id="tablaTragos" class="col-xs-12"></div>
+</body>
+
+<script type="text/javascript">
+	listar();
+	function listar(){
+		$.ajax({
+		    type: 'POST',
+		    url: "/listar-tragos",
+		    success: function (data) {
+		       $('#tablaTragos').html(data);
+		    }
+		});
+	}
+	function filtrar(){
+		$.ajax({
+		    type: 'POST',
+		    url: "/filtrar-comprobantes/",
+			data: $("#form").serialize(),
+		    success: function (data) {
+		       $('#tablaComprobantes').html(data);
+		    }
+		});
+	}
+	function volverHome(){
+		window.location = 'http://localhost:8081/inicial';
+	}
+</script>
+<style>
+/* .btn{ */
+/* 	width: 150px; */
+/*     font-size: 17px; */
+/*     height:40px; */
+/*     margin-top: 15px; */
+/*     float: right; */
+/* } */
+
+	.btn{
+		font-size: 17px;
+		height:40px;
+		margin-top: 15px;
+		float: right;
+		width: 150px;
+	}
+</style>
+</html>

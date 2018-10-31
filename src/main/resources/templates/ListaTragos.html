@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<body>
+<!-- 		<table class="table table-striped"> -->
+<!-- 			<thead> -->
+<!-- 				<tr> -->
+<!-- 					<th style="width: 25%">Nombre</th> -->
+<!-- 					<th style="width: 5%">Código</th> -->
+<!-- 					<th style="width: 10%">Vaso</th> -->
+<!-- 					<th style="width: 10%">Graduacion</th> -->
+<!-- 					<th style="width: 10%">Puntuación</th> -->
+<!-- 					<th style="width: 10%"></th> -->
+<!-- 				</tr> -->
+<!-- 			</thead> -->
+<!-- 			<tbody> -->
+<!-- 				<tr style="cursor: pointer; font-size: 20px" onclick="mostrarDetalleTrago()" th:each="trago : ${tragos}"> -->
+<!-- 					<td th:text="${trago.nombre}"></td> -->
+<!-- 					<td th:text="${trago.id}"></td> -->
+<!-- 					<td th:text="${trago.vaso}"></td> -->
+<!-- 					<td th:text="${trago.graduacion}+'%'"></td> -->
+<!-- 					<td th:text="${trago.puntuacion}+'/10'"></td> -->
+<!-- 					<td>Ver detalle</td> -->
+<!-- 					<td><button class="btn-sm btn-danger" th:onclick="'eliminarComprobante(' + ${comprobante.id} + ')'">Eliminar</button></td> -->
+<!-- 				</tr>    -->
+<!-- 			</tbody> -->
+<!-- 		</table> -->
+		
+		<div class="col-xs-4 panel panel-default" th:each="trago : ${tragos}" style="padding-left: 0px">
+			<div class="col-xs-6">
+				<img th:src="@{${trago.imagen}}" style="max-width: 100%; height: 175px; border: 1px solid #000!important; margin-bottom: 10px "></img>
+				<p>Creado por: <label th:text="${trago.usuario.username}"></label></p>
+			</div>
+			<div class="col-xs-6">
+				<h3 th:text="${trago.nombre}" style="text-align: center"></h3>
+				<p>Vaso recomendado: <label th:text="${trago.vaso}"></label></p>
+				<p>Graduación: <label th:text="${trago.graduacion}+'%'"></label></p>
+				<p>Puntuación: <label th:text="${trago.puntuacion}+' / 10'"></label></p>
+				<p>Ingredientes:</p>
+				<p>- <label>30% Fernet</label></p>
+				<p>- <label>70% Coca</label></p>
+			</div>
+		</div>
+	</body>
+	
+	<style>
+		label{
+		
+		}
+	</style>
+	
+	
+	<script type="text/javascript">
+	function eliminarComprobante(id){
+		$.ajax({
+		    type: 'GET',
+		    url: "/eliminar-comprobante/",
+		    data: "id="+id,
+		    success: function (data) {
+		       filtrar();
+		    }
+		});
+	}
+	function enviarMail(id){
+		$.ajax({
+		    type: 'GET',
+		    url: "/enviar-mail/",
+		    data: "id="+id,
+		    success: function (data) {
+		    	window.location.href = "http://localhost:8081/comprobantes";
+		    }
+		});
+	}
+	function modificarComprobante(id){
+		window.location.href = "http://localhost:8081/modificar-comprobante/"+id;
+	}
+	</script>
+</html>
