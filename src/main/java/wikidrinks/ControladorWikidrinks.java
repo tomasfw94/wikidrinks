@@ -3,8 +3,9 @@ package wikidrinks;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -14,16 +15,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class ControladorWikidrinks {
-	
+
    @Autowired
    private UsuarioRepository usuarioRepository;
 
    @Autowired
    private TragoRepository tragoRepository;
    
-   @Autowired
-   private JavaMailSender sender;
-
    @RequestMapping("/login")
    public String login(){
 	   return "Login";
@@ -31,15 +29,15 @@ public class ControladorWikidrinks {
    
    @RequestMapping(value = "/loguearse", produces = "text/plain")
    @ResponseBody
-   public String loguearse(@RequestParam String userMail, @RequestParam String pass){
-	   Usuario u = usuarioRepository.findByUsername(userMail);
-	   if(u == null) {
-		   u = usuarioRepository.findByMail(userMail);
+   public String loguearse(@RequestParam String userMail, @RequestParam String pass, HttpSession session){
+	   Usuario user = usuarioRepository.findByUsername(userMail);
+	   if(user == null) {
+		   user = usuarioRepository.findByMail(userMail);
 	   }
-	   if(u == null) {
+	   if(user == null) {
 		   return "No existe ese usuario.";
 	   }
-	   if(u.getPassword().equals(pass)) {
+	   if(user.getPassword().equals(pass)) {
 		   return "OK";
 	   }else {
 		   return "Datos incorrectos.";
@@ -74,6 +72,26 @@ public class ControladorWikidrinks {
 		}
 		model.addAttribute("tragos", tragosReturn);
 		return "ListaTragos";
+	}
+	
+	@RequestMapping("/crear-trago")
+	@ResponseBody
+	public String crearTrago(@RequestParam String nombre, @RequestParam float grad, @RequestParam float punt, 
+			@RequestParam String urlImagen, @RequestParam String vaso, HttpSession session) {
+		
+		Trago trago = new Trago();
+		trago.setNombre(nombre);
+		trago.setVaso(vaso);
+		trago.setGraduacion(grad);
+		trago.setPuntuacion(punt);
+		trago.setImagen(urlImagen);
+		trago.setActivo(true);
+		Usuario u = usuarioRepository.findByUsername("tomasfw94");
+		trago.setUsuario(u);
+		
+		tragoRepository.save(trago);
+		
+		return "OK";
 	}
 	
 //	

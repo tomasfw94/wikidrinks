@@ -3,35 +3,86 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 	<link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css"/>
+	<link rel="stylesheet" href="/webjars/font-awesome/css/font-awesome.min.css"></link>
+	
 	<script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
 	<script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
-	<link rel="stylesheet" href="/webjars/font-awesome/css/font-awesome.min.css"></link>
+	<script type="text/javascript" src="/webjars/jquery-validation/1.13.0/jquery.validate.js"></script>
+	
 	<link rel="icon" href="https://banner2.kisspng.com/20180402/cyw/kisspng-bourbon-whiskey-old-fashioned-scotch-whisky-jameso-whiskey-5ac2b4cf8eb666.1018153215227097115846.jpg"></link>
 	<title>Wikidrinks - Tragos</title>
 </head>
 <body>
 	<h2 class="col-xs-12" style="text-align: center;">TRAGOS</h2>
-	<div class="panel panel-default col-xs-11" style="margin: 20px; font-size: 20px">
+	<div class="panel panel-default col-xs-12" style="font-size: 20px">
 		<div class="panel-body col-xs-12">
-		<form id="form">
-			Nombre: 
-			<input type="text" name="nombre"/>
-			Graduación:
-			<input type="text" name="cuit"/>
-			Puntuación:
-			<input type="text" name="fecha"/>
-			<div class="col-xs-4 col-xs-offset-8 row">
-				<span onclick="filtrar();" class="btn btn-primary" style="margin-right: 45px; margin-left: 10px">Filtrar</span>
-				<span onclick="volverHome()" class="btn btn-success">Volver</span>
+			<div class="col-xs-12 form-group">
+				<form id="form">
+					Nombre: 
+					<input type="text" name="nombre" />
+					Graduación:
+					<input type="text" name="cuit"/>
+					Puntuación:
+					<input type="text" name="fecha"/>
+				</form>
 			</div>
-		</form>
+			<div class="col-xs-2">
+				<span onclick="volverHome()" class="btn btn-success col-xs-10">Volver</span>
+			</div>
+			<div class="col-md-6 col-md-offset-3">
+				<button type="button" class="btn btn-info col-xs-6 col-md-3" data-toggle="modal" data-target="#nuevoTragoModal" style="margin-right: 10px">
+					Nuevo Trago
+				</button>
+				<span onclick="filtrar();" class="btn btn-primary col-xs-6 col-md-3">Filtrar</span>
+			</div>
 		</div>
 	</div>
 	<div id="tablaTragos" class="col-xs-12"></div>
+	<div class="modal fade" id="nuevoTragoModal" tabindex="-1" role="dialog" aria-labelledby="nuevoTragoModalLabel" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <label class="modal-title" id="exampleModalLabel">Nuevo trago</label>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body" style="font-size: 15px; float: right;">
+	     	 <form id="formTrago">
+	     	 <div class="col-xs-12 form-group">
+				<label class="col-xs-4">Nombre:</label> 
+				<input type="text" name="nombre" />
+	     	 </div>
+	     	 <div class="col-xs-12 form-group">
+				<label class="col-xs-4">Vaso recomendado:</label>
+				<input type="text" name="vaso" />
+	     	 </div>
+	     	 <div class="col-xs-12 form-group">
+				<label class="col-xs-4">Graduación:</label>
+				<input type="number" name="grad" />
+	     	 </div>
+	     	 <div class="col-xs-12 form-group">
+				<label class="col-xs-4">Puntuación:</label>
+				<input type="number" name="punt" />
+	     	 </div>
+	     	 <div class="col-xs-12 form-group">
+				<label class="col-xs-3">URL imagen:</label>
+				<input class="col-xs-9" type="text" name="urlImagen"/>
+	     	 </div>
+			</form>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Crear</button>
+	        <button type="button" class="btn btn-primary" onclick="crearTrago();">Crear trago</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
 </body>
 
 <script type="text/javascript">
 	listar();
+	$.validator.messages.required = "Este campo es requerido";
 	function listar(){
 		$.ajax({
 		    type: 'POST',
@@ -51,25 +102,31 @@
 		    }
 		});
 	}
-	function volverHome(){
-		window.location = 'http://localhost:8081/inicial';
+	
+	function crearTrago(){
+		if($("#formTrago").valid()){
+			$.ajax({
+			    type: 'POST',
+			    url: "/crear-trago/",
+				data: $("#formTrago").serialize(),
+			    success: function (data) {
+			    	alert("Trago creado correctamente");
+			    	location.reload();
+			    }
+			});
+		}
 	}
+	function volverHome(){
+		window.location = 'http://localhost:8080/inicial';
+	}
+	
 </script>
 <style>
-/* .btn{ */
-/* 	width: 150px; */
-/*     font-size: 17px; */
-/*     height:40px; */
-/*     margin-top: 15px; */
-/*     float: right; */
-/* } */
-
 	.btn{
 		font-size: 17px;
-		height:40px;
-		margin-top: 15px;
-		float: right;
-		width: 150px;
+	}
+	.error{
+		color:red;
 	}
 </style>
 </html>

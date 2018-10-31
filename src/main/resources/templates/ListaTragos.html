@@ -28,7 +28,7 @@
 		
 		<div class="col-xs-4 panel panel-default" th:each="trago : ${tragos}" style="padding-left: 0px">
 			<div class="col-xs-6">
-				<img th:src="@{${trago.imagen}}" style="max-width: 100%; height: 175px; border: 1px solid #000!important; margin-bottom: 10px "></img>
+				<img th:src="@{${trago.imagen}}" alt="Imagen no disponible" style="max-width: 100%; height: 175px; border: 1px solid #000!important; margin-bottom: 10px "></img>
 				<p>Creado por: <label th:text="${trago.usuario.username}"></label></p>
 			</div>
 			<div class="col-xs-6">
@@ -37,8 +37,7 @@
 				<p>Graduación: <label th:text="${trago.graduacion}+'%'"></label></p>
 				<p>Puntuación: <label th:text="${trago.puntuacion}+' / 10'"></label></p>
 				<p>Ingredientes:</p>
-				<p>- <label>30% Fernet</label></p>
-				<p>- <label>70% Coca</label></p>
+				<p th:each="ingrediente:${trago.ingredientes}">- <label th:text="${ingrediente.medida}+'% '+${ingrediente.nombre}"></label></p>
 			</div>
 		</div>
 	</body>
