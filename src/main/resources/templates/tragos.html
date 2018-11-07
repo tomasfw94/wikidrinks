@@ -2,17 +2,11 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-	<link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css"/>
-	<link rel="stylesheet" href="/webjars/font-awesome/css/font-awesome.min.css"></link>
-	
-	<script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
-	<script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="/webjars/jquery-validation/1.13.0/jquery.validate.js"></script>
-	
-	<link rel="icon" href="https://banner2.kisspng.com/20180402/cyw/kisspng-bourbon-whiskey-old-fashioned-scotch-whisky-jameso-whiskey-5ac2b4cf8eb666.1018153215227097115846.jpg"></link>
+	<div th:replace="cssYJs"></div>	
 	<title>Wikidrinks - Tragos</title>
 </head>
 <body>
+	<div th:replace="header"></div>
 	<h2 class="col-xs-12" style="text-align: center;">TRAGOS</h2>
 	<div class="panel panel-default col-xs-12" style="font-size: 20px">
 		<div class="panel-body col-xs-12">
@@ -69,6 +63,7 @@
 				<label class="col-xs-3">URL imagen:</label>
 				<input class="col-xs-9" type="text" name="urlImagen"/>
 	     	 </div>
+				<input type="hidden" name="idUsuario"/>
 			</form>
 	      </div>
 	      <div class="modal-footer">
@@ -105,10 +100,14 @@
 	
 	function crearTrago(){
 		if($("#formTrago").valid()){
+			
+			var form = $("#formTrago").serialize();
+			var user = JSON.parse(sessionStorage.getItem("loggedUser"));
+			var data = form + user.id;
 			$.ajax({
 			    type: 'POST',
 			    url: "/crear-trago/",
-				data: $("#formTrago").serialize(),
+				data: data,
 			    success: function (data) {
 			    	alert("Trago creado correctamente");
 			    	location.reload();

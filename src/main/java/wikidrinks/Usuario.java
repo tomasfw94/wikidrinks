@@ -15,6 +15,12 @@ public class Usuario {
     @Column(name = "id_usuario", nullable = false, updatable = false)
     private Integer id;
 	
+	@Column(name="nombre")
+	private String nombre;
+	
+	@Column(name="apellido")
+	private String apellido;
+	
 	@Column(name="username")
 	private String username;
 	
@@ -75,6 +81,18 @@ public class Usuario {
 	}
 	public void setActivo(Boolean activo) {
 		this.activo = activo;
+	}
+	public String getNombre() {
+		return nombre;
+	}
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+	public String getApellido() {
+		return apellido;
+	}
+	public void setApellido(String apellido) {
+		this.apellido = apellido;
 	}
 
 }

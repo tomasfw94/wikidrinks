@@ -3,17 +3,22 @@ package wikidrinks;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
+@Scope("session")
 public class ControladorWikidrinks {
 
    @Autowired
@@ -23,14 +28,33 @@ public class ControladorWikidrinks {
    private TragoRepository tragoRepository;
    
    @RequestMapping("/login")
-   public String login(){
-	   return "Login";
+   public String login(Model model, @CookieValue(name = "idUser", required = false) Integer idUser){
+	   if(idUser != null) {
+		   model.addAttribute("loggedUser", usuarioRepository.findById(idUser));
+	   }
+	   return "login";
    }
    
-   @RequestMapping(value = "/loguearse", produces = "text/plain")
+   @RequestMapping("/logout")
    @ResponseBody
-   public String loguearse(@RequestParam String userMail, @RequestParam String pass, HttpSession session){
+   public String login(HttpServletResponse response, HttpServletRequest request){
+	   Cookie[] cookies = request.getCookies();
+	   for (Cookie cookie : cookies) {
+		if(cookie.getName().equalsIgnoreCase("idUser")){
+			cookie.setValue("");
+	        cookie.setPath("/");
+			cookie.setMaxAge(0);
+			response.addCookie(cookie);
+		}
+	}
+	   return "OK";
+   }
+   
+   @RequestMapping(value = "/validar-login", produces = "text/plain")
+   @ResponseBody
+   public String validarLogin(@RequestParam String userMail, @RequestParam String pass, HttpServletResponse response){
 	   Usuario user = usuarioRepository.findByUsername(userMail);
+	   
 	   if(user == null) {
 		   user = usuarioRepository.findByMail(userMail);
 	   }
@@ -38,28 +62,47 @@ public class ControladorWikidrinks {
 		   return "No existe ese usuario.";
 	   }
 	   if(user.getPassword().equals(pass)) {
+		   response.addCookie(new Cookie("idUser", user.getId().toString()));
 		   return "OK";
 	   }else {
 		   return "Datos incorrectos.";
 	   }
    }
    
+   @RequestMapping("/registro")
+   public String registro(Model model, @CookieValue(name = "idUser", required = false) Integer idUser){
+	   if(idUser != null) {
+		   model.addAttribute("loggedUser", usuarioRepository.findById(idUser));
+	   }
+	   model.addAttribute("pantallaActual", "registro");
+	   return "registro";
+   }
+   
+//   @RequestMapping(value = "/loguear-usuario", produces = "text/plain")
+//   @ResponseBody
+//   public String loguearUsuario(@RequestParam String userMail, @RequestParam String pass, HttpSession session) throws JsonGenerationException, JsonMappingException, IOException{
+//	   Usuario user = usuarioRepository.findByUsername(userMail);
+//	   if(user == null) {
+//		   user = usuarioRepository.findByMail(userMail);
+//	   }
+//	   ObjectMapper mapper = new ObjectMapper();
+//	   String jsonUser = mapper.writeValueAsString(user);
+//	   return jsonUser;
+//   }
+   
 	@RequestMapping("/inicial")
-	public String menuInicial(){
-		return "PantallaInicial";
+	public String pantallaInicial(@CookieValue(name = "idUser", required = false) Integer idUser, Model model){
+		model.addAttribute("loggedUser", usuarioRepository.findById(idUser));
+		model.addAttribute("pantallaActual", "home");
+		return "pantallaInicial";
 	}
 	
 	@RequestMapping("/tragos")
-	public String tragos(){
-		return "Tragos";
+	public String tragos(@CookieValue(name = "idUser", required = false) Integer idUser, Model model){
+		model.addAttribute("loggedUser", usuarioRepository.findById(idUser));
+		model.addAttribute("pantallaActual", "tragos");
+		return "tragos";
 	}
-	
-	@RequestMapping("/usuarios")
-	public String usuarios(Model model){
-		model.addAttribute("usuario", new Usuario());
-		return "EditorUsuarios";
-	}
-	
 	
 	@RequestMapping("/listar-tragos")
 	public String listarComprobantes(Model model){
@@ -77,7 +120,7 @@ public class ControladorWikidrinks {
 	@RequestMapping("/crear-trago")
 	@ResponseBody
 	public String crearTrago(@RequestParam String nombre, @RequestParam float grad, @RequestParam float punt, 
-			@RequestParam String urlImagen, @RequestParam String vaso, HttpSession session) {
+			@RequestParam String urlImagen, @RequestParam String vaso, @RequestParam Integer idUsuario) {
 		
 		Trago trago = new Trago();
 		trago.setNombre(nombre);
@@ -86,7 +129,7 @@ public class ControladorWikidrinks {
 		trago.setPuntuacion(punt);
 		trago.setImagen(urlImagen);
 		trago.setActivo(true);
-		Usuario u = usuarioRepository.findByUsername("tomasfw94");
+		Usuario u = usuarioRepository.findById(idUsuario);
 		trago.setUsuario(u);
 		
 		tragoRepository.save(trago);
@@ -94,6 +137,11 @@ public class ControladorWikidrinks {
 		return "OK";
 	}
 	
+	@RequestMapping("/usuarios")
+	public String usuarios(Model model){
+		model.addAttribute("usuario", new Usuario());
+		return "EditorUsuarios";
+	}
 //	
 //	@RequestMapping("/filtrar-comprobantes")
 //	public String filtrarComprobantes(Model model, @RequestParam Integer numero, @RequestParam String cuit, 

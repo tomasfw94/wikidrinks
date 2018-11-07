@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<div th:replace="cssYJs"></div>
+	<title>Wikidrinks - Registro</title>
+</head>
+<body>
+	<div th:replace="header"></div>
+	<div id="registro" style="text-align:center;" class="container">
+		<form id="formRegistro">
+			<label style="font-family: cursive; font-size: 30px; margin-bottom: 20px">Registro</label>
+			<div class="col-xs-12 form-group">
+				<div class="col-xs-4 col-md-offset-2">
+					<div class="input-group">
+						<span class="input-group-addon" id="sizing-addon2">Nombre</span>
+						<input type="text" class="form-control"/>
+					</div>
+				</div>
+				<div class="col-xs-4">
+					<div class="input-group">
+						<span class="input-group-addon" id="sizing-addon2">Apellido</span>
+						<input type="text" class="form-control"/>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12 form-group">
+				<div class="col-xs-4 col-md-offset-2">
+					<div class="input-group">
+						<span class="input-group-addon" id="sizing-addon2">Direccion</span>
+						<input type="text" class="form-control"/>
+					</div>
+				</div>
+				<div class="col-xs-4">
+					<div class="input-group">
+						<span class="input-group-addon" id="sizing-addon2">Teléfono</span>
+						<input type="number" class="form-control"/>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12 form-group">
+				<div class="col-xs-4 col-md-offset-2">
+					<div class="input-group">
+						<span class="input-group-addon" id="sizing-addon2">Usuario</span>
+						<input type="text" class="form-control"/>
+					</div>
+				</div>
+				<div class="col-xs-4">
+					<div class="input-group">
+						<span class="input-group-addon" id="sizing-addon2">Email</span>
+						<input type="text" class="form-control"/>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12 form-group">
+				<div class="col-xs-4 col-md-offset-2">
+					<div class="input-group">
+						<span class="input-group-addon" id="sizing-addon2">Contraseña</span>
+						<input type="password" class="form-control"/>
+					</div>
+				</div>
+				<div class="col-xs-4">
+					<div class="input-group">
+						<span class="input-group-addon" id="sizing-addon2">Repetir contraseña</span>
+						<input type="password" class="form-control"/>
+					</div>
+				</div>
+			</div>
+			<span onclick="registrarse()" class="btn btn-success col-xs-2 col-xs-offset-5 form-group" style="margin-top: 30px; font-size: 20px">Registrarse</span>
+		</form>
+	</div>
+	<div style="text-align: center">
+		<img src="https://images.clarin.com/2015/03/21/Byj7YWJNg_930x525.jpg"></img>
+	</div>
+</body>
+<script type="text/javascript">
+function registrarse(){
+	$.ajax({
+	    type: 'POST',
+	    url: "/validar-login",
+	    data: $("#formRegistro").serialize(),
+	    success: function (data) {
+	    	if(data == "OK"){
+	    		window.location.href = "http://localhost:8080/inicial";
+	    		$.ajax({
+				    type: 'POST',
+				    url: "/loguear-usuario/",
+					data: $("#form").serialize(),
+				    success: function (user) {
+			    		sessionStorage.setItem("loggedUser", user);
+				    }
+				});
+	    	}else{
+	    		alert(data);
+	    	}
+	    }
+	});
+}
+</script>
+
+<style>
+	#sizing-addon2 {
+		font-family: cursive;
+	}
+</style>
+</html>
