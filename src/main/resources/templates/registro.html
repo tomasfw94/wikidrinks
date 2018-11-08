@@ -8,19 +8,20 @@
 <body>
 	<div th:replace="header"></div>
 	<div id="registro" style="text-align:center;" class="container">
+		<div class="alert alert-danger" id="divError" style="display: none"></div>
 		<form id="formRegistro">
 			<label style="font-family: cursive; font-size: 30px; margin-bottom: 20px">Registro</label>
 			<div class="col-xs-12 form-group">
 				<div class="col-xs-4 col-md-offset-2">
 					<div class="input-group">
 						<span class="input-group-addon" id="sizing-addon2">Nombre</span>
-						<input type="text" class="form-control"/>
+						<input type="text" class="form-control" name="nombre" required="required"/>
 					</div>
 				</div>
 				<div class="col-xs-4">
 					<div class="input-group">
 						<span class="input-group-addon" id="sizing-addon2">Apellido</span>
-						<input type="text" class="form-control"/>
+						<input type="text" class="form-control" name="apellido" required="required"/>
 					</div>
 				</div>
 			</div>
@@ -28,13 +29,13 @@
 				<div class="col-xs-4 col-md-offset-2">
 					<div class="input-group">
 						<span class="input-group-addon" id="sizing-addon2">Direccion</span>
-						<input type="text" class="form-control"/>
+						<input type="text" class="form-control" name="direccion"/>
 					</div>
 				</div>
 				<div class="col-xs-4">
 					<div class="input-group">
 						<span class="input-group-addon" id="sizing-addon2">Teléfono</span>
-						<input type="number" class="form-control"/>
+						<input type="text" class="form-control" name="telefono" digits="true"/>
 					</div>
 				</div>
 			</div>
@@ -42,13 +43,13 @@
 				<div class="col-xs-4 col-md-offset-2">
 					<div class="input-group">
 						<span class="input-group-addon" id="sizing-addon2">Usuario</span>
-						<input type="text" class="form-control"/>
+						<input type="text" class="form-control" name="username" required="required"/>
 					</div>
 				</div>
 				<div class="col-xs-4">
 					<div class="input-group">
 						<span class="input-group-addon" id="sizing-addon2">Email</span>
-						<input type="text" class="form-control"/>
+						<input type="text" class="form-control" name="email" required="required" email="true"/>
 					</div>
 				</div>
 			</div>
@@ -56,13 +57,14 @@
 				<div class="col-xs-4 col-md-offset-2">
 					<div class="input-group">
 						<span class="input-group-addon" id="sizing-addon2">Contraseña</span>
-						<input type="password" class="form-control"/>
+						<input type="password" class="form-control" name="pass" required="required" minlength="6"/>
 					</div>
+					<div class="errorTxt"></div>
 				</div>
 				<div class="col-xs-4">
 					<div class="input-group">
 						<span class="input-group-addon" id="sizing-addon2">Repetir contraseña</span>
-						<input type="password" class="form-control"/>
+						<input type="password" class="form-control" name="passConfirmacion" required="required" minlength="6"/>
 					</div>
 				</div>
 			</div>
@@ -74,33 +76,55 @@
 	</div>
 </body>
 <script type="text/javascript">
+
+$.validator.messages.required = "Este campo es requerido";
+$.validator.messages.minlength = "Ingrese al menos 6 caracteres";
+$.validator.messages.digits = "Ingrese solo números";
+$.validator.messages.email = "Ingrese un email válido";
+
+jQuery(function($) {
+  var validator = $('#formRegistro').validate({
+	  errorElement : 'div',
+    errorLabelContainer: '.errorTxt'
+  });
+});
+	
 function registrarse(){
-	$.ajax({
-	    type: 'POST',
-	    url: "/validar-login",
-	    data: $("#formRegistro").serialize(),
-	    success: function (data) {
-	    	if(data == "OK"){
-	    		window.location.href = "http://localhost:8080/inicial";
-	    		$.ajax({
-				    type: 'POST',
-				    url: "/loguear-usuario/",
-					data: $("#form").serialize(),
-				    success: function (user) {
-			    		sessionStorage.setItem("loggedUser", user);
-				    }
-				});
-	    	}else{
-	    		alert(data);
-	    	}
-	    }
-	});
+	if($("#formRegistro").valid()){
+		var formJqObj = $("#formRegistro");
+	    var formDataObj = {};
+	    (function(){
+	        formJqObj.find(":input").not("[type='submit']").not("[type='reset']").each(function(){
+	            var thisInput = $(this);
+	            formDataObj[thisInput.attr("name")] = thisInput.val();
+	        });
+	    })();
+		
+		$.ajax({
+		    type: 'POST',
+		    url: "/registrar-usuario",
+		    contentType: "application/json",
+		    data: JSON.stringify(formDataObj),
+		    success: function (data) {
+		    	if(data == "OK"){
+		    		alert("Usuario creado correctamente.");
+		    		window.location.href = "http://localhost:8080/inicial";
+		    	}else{
+		    		$("#divError").html(data);
+		    		$("#divError").show();
+		    	}
+		    }
+		});
+	}
 }
 </script>
 
 <style>
 	#sizing-addon2 {
 		font-family: cursive;
+	}
+	.error{
+		color:red;
 	}
 </style>
 </html>

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -77,6 +78,30 @@ public class ControladorWikidrinks {
 	   model.addAttribute("pantallaActual", "registro");
 	   return "registro";
    }
+   @RequestMapping("/registrar-usuario")
+   @ResponseBody
+   public String registrarUsuario(@RequestBody RegistroDTO registro){
+	   Usuario u = usuarioRepository.findByUsername(registro.getUsername());
+	   Usuario u2 = usuarioRepository.findByMail(registro.getEmail());
+	   if(u != null || u2 != null){
+		   return "Ya existe ese usuario o email";
+	   }
+	   if(!registro.getPass().equals(registro.getPassConfirmacion())) {
+		   return "Las passwords no coinciden";
+	   }
+	   Usuario nuevoUser = new Usuario();
+	   nuevoUser.setActivo(true);
+	   nuevoUser.setApellido(registro.getApellido());
+	   nuevoUser.setDireccion(registro.getDireccion());
+	   nuevoUser.setMail(registro.getEmail());
+	   nuevoUser.setNombre(registro.getNombre());
+	   nuevoUser.setPassword(registro.getPass());
+	   nuevoUser.setTelefono(registro.getTelefono());
+	   nuevoUser.setUsername(registro.getUsername());
+	   usuarioRepository.save(nuevoUser);
+	   return "OK";
+   }
+   
    
 //   @RequestMapping(value = "/loguear-usuario", produces = "text/plain")
 //   @ResponseBody
