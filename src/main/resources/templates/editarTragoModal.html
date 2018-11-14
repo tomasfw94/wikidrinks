@@ -1,0 +1,139 @@
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+	<div class="modal fade" id="editarTragoModal" tabindex="-1" role="dialog" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <label class="modal-title" id="exampleModalLabel">Nuevo trago</label>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body" style="font-size: 15px; float: right;">
+	     	 <form id="formEditarTrago">
+	     	 <input type="hidden" name="id" th:value="${tragoDto.id}"/>
+	     	 <input type="hidden" name="activo" th:value="${tragoDto.activo}"/>
+	     	 <div class="col-xs-12 form-group">
+				<label class="col-xs-4">Nombre:</label> 
+				<input type="text" name="nombre" style="float: left" th:value="${tragoDto.nombre}" required="required"/>
+				<input type="checkbox" style="float: left; margin-left: 10px;" th:field="${tragoDto.deAutor}"/>
+				<label class="col-xs-3">Trago de autor</label> 
+	     	 </div>
+	     	 <div class="col-xs-12 form-group">
+				<label class="col-xs-4">Vaso recomendado:</label>
+				<input type="text" name="vaso" th:value="${tragoDto.vaso}" required="required"/>
+	     	 </div>
+	     	 <div class="col-xs-12 form-group">
+				<label class="col-xs-4">Graduación:</label>
+				<input type="number" name="graduacion" th:value="${tragoDto.graduacion}" required="required"/>
+	     	 </div>
+	     	 <div class="col-xs-12 form-group">
+				<label class="col-xs-3">URL imagen:</label>
+				<input class="col-xs-9" type="text" name="urlImagen" th:value="${tragoDto.urlImagen}" />
+	     	 </div>
+	     	 <div id="divIng1" class="col-xs-12 form-group" th:style="${tragoDto.ing1} ? '' : 'display:none'">
+				<label class="col-xs-3">Ingrediente 1:</label>
+				<input class="col-xs-3" type="text" name="ing1" th:value="${tragoDto.ing1}" required="required"/>
+				<label class="col-xs-2">Medida:</label>
+				<input class="col-xs-2" type="number" name="medIng1" th:value="${tragoDto.medIng1}" required="required"/>
+				<i onclick="mostrarDivIng(2)" style="font-size: 25px; margin-left: 10px; cursor: pointer;" class="fa fa-plus-circle"></i>
+	     	 </div>
+	     	 <div id="divIng2" class="col-xs-12 form-group" th:style="${tragoDto.ing2} ? '' : 'display:none'">
+				<label class="col-xs-3">Ingrediente 2:</label>
+				<input class="col-xs-3" type="text" name="ing2" id="ing2" th:value="${tragoDto.ing2}"/>
+				<label class="col-xs-2">Medida:</label>
+				<input class="col-xs-2" type="number" name="medIng2" id="medIng2" th:value="${tragoDto.medIng2}"/>
+				<i onclick="eliminarIngrediente(2)" style="font-size: 25px; margin-left: 10px; cursor: pointer; color: red" class="fa fa-minus-circle"></i>
+				<i onclick="mostrarDivIng(3)" style="font-size: 25px; margin-left: 10px; cursor: pointer;" class="fa fa-plus-circle"></i>
+	     	 </div>
+	     	 <div id="divIng3" class="col-xs-12 form-group" th:style="${tragoDto.ing3} ? '' : 'display:none'">
+				<label class="col-xs-3">Ingrediente 3:</label>
+				<input class="col-xs-3" type="text" name="ing3" id="ing3" th:value="${tragoDto.ing3}"/>
+				<label class="col-xs-2">Medida:</label>
+				<input class="col-xs-2" type="number" name="medIng3" id="medIng3" th:value="${tragoDto.medIng3}"/>
+				<i onclick="eliminarIngrediente(3)" style="font-size: 25px; margin-left: 10px; cursor: pointer; color: red" class="fa fa-minus-circle"></i>
+				<i onclick="mostrarDivIng(4)" style="font-size: 25px; margin-left: 10px; cursor: pointer;" class="fa fa-plus-circle"></i>
+	     	 </div>
+	     	 <div id="divIng4" class="col-xs-12 form-group" th:style="${tragoDto.ing4} ? '' : 'display:none'">
+				<label class="col-xs-3">Ingrediente 4:</label>
+				<input class="col-xs-3" type="text" name="ing4" id="ing4" th:value="${tragoDto.ing4}"/>
+				<label class="col-xs-2">Medida:</label>
+				<input class="col-xs-2" type="number" name="medIng4" id="medIng4" th:value="${tragoDto.medIng4}"/>
+				<i onclick="eliminarIngrediente(4)" style="font-size: 25px; margin-left: 10px; cursor: pointer; color: red" class="fa fa-minus-circle"></i>
+				<i onclick="mostrarDivIng(5)" style="font-size: 25px; margin-left: 10px; cursor: pointer;" class="fa fa-plus-circle"></i>
+	     	 </div>
+	     	 <div id="divIng5" class="col-xs-12 form-group" th:style="${tragoDto.ing5} ? '' : 'display:none'">
+				<label class="col-xs-3">Ingrediente 5:</label>
+				<input class="col-xs-3" type="text" name="ing5" id="ing5" th:value="${tragoDto.ing5}"/>
+				<label class="col-xs-2">Medida:</label>
+				<input class="col-xs-2" type="number" name="medIng5" id="medIng5" th:value="${tragoDto.medIng5}"/>
+				<i onclick="eliminarIngrediente(5)" style="font-size: 25px; margin-left: 10px; cursor: pointer; color: red" class="fa fa-minus-circle"></i>
+				<i onclick="mostrarDivIng(6)" style="font-size: 25px; margin-left: 10px; cursor: pointer;" class="fa fa-plus-circle"></i>
+	     	 </div>
+	     	 <div id="divIng6" class="col-xs-12 form-group" th:style="${tragoDto.ing6} ? '' : 'display:none'">
+				<label class="col-xs-3">Ingrediente 6:</label>
+				<input class="col-xs-3" type="text" name="ing6" id="ing6" th:value="${tragoDto.ing6}"/>
+				<label class="col-xs-2">Medida:</label>
+				<input class="col-xs-2" type="number" name="medIng6" id="medIng6" th:value="${tragoDto.medIng6}"/>
+				<i onclick="eliminarIngrediente(6)" style="font-size: 25px; margin-left: 10px; cursor: pointer; color: red" class="fa fa-minus-circle"></i>
+				<i onclick="mostrarDivIng(7)" style="font-size: 25px; margin-left: 10px; cursor: pointer;" class="fa fa-plus-circle"></i>
+	     	 </div>
+	     	 <div id="divIng7" class="col-xs-12 form-group" th:style="${tragoDto.ing7} ? '' : 'display:none'">
+				<label class="col-xs-3">Ingrediente 7:</label>
+				<input class="col-xs-3" type="text" name="ing7" id="ing7" th:value="${tragoDto.ing7}"/>
+				<label class="col-xs-2">Medida:</label>
+				<input class="col-xs-2" type="number" name="medIng7" id="medIng7" th:value="${tragoDto.medIng7}"/>
+				<i onclick="eliminarIngrediente(7)" style="font-size: 25px; margin-left: 10px; cursor: pointer; color: red" class="fa fa-minus-circle"></i>
+	     	 </div>
+			</form>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+	        <button type="button" class="btn btn-primary" onclick="guardarEditarTrago();">Guardar trago</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	
+	<script>
+	
+	$.validator.messages.required = "Este campo es requerido";
+	
+	function guardarEditarTrago(){
+		
+		if($("#deAutor1").is(":checked")){
+			$("#deAutor1").val(true);
+		}else{
+			$("#deAutor1").val(false);
+		}
+		
+		if($("#formEditarTrago").valid()){
+			var formJqObj = $("#formEditarTrago");
+		    var formDataObj = {};
+		    (function(){
+		        formJqObj.find(":input").not("[type='submit']").not("[type='reset']").each(function(){
+		            var thisInput = $(this);
+		            formDataObj[thisInput.attr("name")] = thisInput.val();
+		        });
+		    })();
+			
+			$.ajax({
+			    type: 'POST',
+			    url: "/guardar-trago/",
+			    contentType: "application/json",
+			    data: JSON.stringify(formDataObj),
+			    success: function (data) {
+			    	alert("Trago editado correctamente");
+			    	location.reload();
+			    }
+			});
+		}
+	}
+	
+	function eliminarIngrediente(id){
+		$("#divIng"+id).hide();
+		$("#ing"+id).val(null);
+		$("#medIng"+id).val(null);
+	}
+	
+	</script>

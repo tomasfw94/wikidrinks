@@ -1,0 +1,62 @@
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+	<div class="modal fade" id="consejosModal" tabindex="-1" role="dialog" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <label class="modal-title" id="exampleModalLabel" th:inline="text">Consejos - [[${trago.nombre}]]</label>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="col-xs-12 modal-body" style="font-size: 15px; float: right;">
+		      <div th:each="consejo : ${trago.consejos}" class="panel panel-default">
+				  <div class="panel-heading" th:inline="text"> <small>[[${consejo.username}]]</small></div>
+				  <div class="panel-body" th:inline="text">
+				  	[[${consejo.texto}]]
+				  </div>
+			  </div>
+	      </div>
+	      <div class="modal-footer">
+		      <div id="divNuevoConsejo" style="display: none" class="col-xs-12 form-group">
+		     	<h4 style="float: left">Nuevo consejo</h4>
+		      	<form id="consejoForm">
+		      		<textarea id="consejoText" name="consejoText" style="width: 100%" form="consejoForm" required="required"></textarea>
+		      		<input type="hidden" name="idTrago" th:value="${trago.id}"/>
+		      	</form> 
+		      </div>
+	        <button type="button" class="btn btn-success" id="btnGuardarConsejo" style="display: none" onclick="guardarConsejo()">Guardar</button>
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Salir</button>
+	        <button type="button" class="btn btn-primary" onclick="nuevoConsejo();">Agregar consejo</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	
+	<script>
+		function nuevoConsejo(){
+			$("#divNuevoConsejo").show();
+			$("#btnGuardarConsejo").show();
+			$("#consejoText").focus();
+		}
+		
+		function guardarConsejo(){
+			if($("#consejoForm").valid()){
+				$.ajax({
+				    type: 'POST',
+				    url: "/agregar-consejo/",
+					data: $("#consejoForm").serialize(),
+					beforeSend: function() {
+				    	$("#consejosModal").modal('toggle');
+				    	$(".modal-backdrop").remove();
+					},
+				    success: function (data) {
+				    	alert("Consejo agregado.");
+				    	$("#divConsejosModal").html(data);
+				    	$("#consejosModal").modal();
+				    }
+				});
+			}
+		}
+	</script>
+	

@@ -10,6 +10,9 @@
 	            <li th:classappend="${pantallaActual == 'home' ? 'active' : ''}">
 	            	<a href="/inicial">Home</a>
 	            </li>
+	            <li th:classappend="${pantallaActual == 'tragos' ? 'active' : ''}">
+	            	<a href="/tragos">Tragos</a>
+	            </li>
 	            <li th:classappend="${pantallaActual == 'misTragos' ? 'active' : ''}">
 	            	<a href="/inicial">Mis Tragos</a>
 	            </li>
@@ -74,15 +77,7 @@ function logIn(){
 	    data: $("#formLogin").serialize(),
 	    success: function (data) {
 	    	if(data == "OK"){
-	    		window.location.href = "http://localhost:8080/inicial";
-// 	    		$.ajax({
-// 				    type: 'POST',
-// 				    url: "/loguear-usuario/",
-// 					data: $("#form").serialize(),
-// 				    success: function (user) {
-// 			    		sessionStorage.setItem("loggedUser", user);
-// 				    }
-// 				});
+	    		location.reload();
 	    	}else{
 	    		alert(data);
 	    	}
