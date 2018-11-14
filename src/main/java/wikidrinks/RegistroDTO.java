@@ -6,6 +6,11 @@ public class RegistroDTO {
 	private String apellido;
 	private String direccion;
 	private String telefono;
+	private String username;
+	private String email;
+	private String pass;
+	private String passConfirmacion;
+	
 	public String getNombre() {
 		return nombre;
 	}
@@ -54,9 +59,5 @@ public class RegistroDTO {
 	public void setPassConfirmacion(String passConfirmacion) {
 		this.passConfirmacion = passConfirmacion;
 	}
-	private String username;
-	private String email;
-	private String pass;
-	private String passConfirmacion;
 
 }

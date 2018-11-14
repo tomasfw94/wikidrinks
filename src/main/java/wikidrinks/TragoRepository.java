@@ -13,5 +13,4 @@ public interface TragoRepository extends CrudRepository<Trago, Integer> {
 	Trago findByNombre(String nombre);
 	Trago findByVaso(String vaso);
 	Trago findByGraduacion(Integer graduacion);
-	Trago findByPuntuacion(Integer puntuacion);
 }

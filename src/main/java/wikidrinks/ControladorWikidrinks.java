@@ -1,12 +1,15 @@
 package wikidrinks;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -78,6 +81,7 @@ public class ControladorWikidrinks {
 	   model.addAttribute("pantallaActual", "registro");
 	   return "registro";
    }
+   
    @RequestMapping("/registrar-usuario")
    @ResponseBody
    public String registrarUsuario(@RequestBody RegistroDTO registro){
@@ -130,37 +134,82 @@ public class ControladorWikidrinks {
 	}
 	
 	@RequestMapping("/listar-tragos")
-	public String listarComprobantes(Model model){
+	public String listarComprobantes(@CookieValue(name = "idUser", required = false) Integer idUser, Model model, @RequestParam String nombre, @RequestParam Float grad, @RequestParam BigDecimal punt){
 		List<Trago> tragos = tragoRepository.findAll();
 		List<Trago> tragosReturn = new ArrayList<>();
 		for (Trago trago : tragos) {
-			if(trago.getActivo()) {
+			if(trago.getActivo() && (StringUtils.isBlank(nombre) || trago.getNombre().toUpperCase().contains(nombre.toUpperCase())) && (grad == null || trago.getGraduacion() >= grad) && (punt == null || trago.getPuntuacion() == null || trago.getPuntuacion().compareTo(punt) == 1 || trago.getPuntuacion().compareTo(punt) == 0) ) {
 				tragosReturn.add(trago);
 			}
 		}
 		model.addAttribute("tragos", tragosReturn);
-		return "ListaTragos";
+		model.addAttribute("loggedUser", usuarioRepository.findById(idUser));
+		return "listaTragos";
 	}
 	
-	@RequestMapping("/crear-trago")
+	@RequestMapping("/guardar-trago")
 	@ResponseBody
-	public String crearTrago(@RequestParam String nombre, @RequestParam float grad, @RequestParam float punt, 
-			@RequestParam String urlImagen, @RequestParam String vaso, @RequestParam Integer idUsuario) {
+	public String guardarTrago(@CookieValue(name = "idUser", required = false) Integer idUser, @RequestBody TragoDTO tragoDto) {
+		Trago trago = tragoDto.getTrago();
 		
-		Trago trago = new Trago();
-		trago.setNombre(nombre);
-		trago.setVaso(vaso);
-		trago.setGraduacion(grad);
-		trago.setPuntuacion(punt);
-		trago.setImagen(urlImagen);
-		trago.setActivo(true);
-		Usuario u = usuarioRepository.findById(idUsuario);
+		Usuario u = usuarioRepository.findById(idUser);
 		trago.setUsuario(u);
 		
 		tragoRepository.save(trago);
 		
 		return "OK";
 	}
+	
+	@RequestMapping("/editar-trago")
+	public String editarTrago(@RequestParam Integer idTrago, Model model){
+		Trago trago = tragoRepository.findById(idTrago);
+		TragoDTO tDto = trago.getDto();
+		model.addAttribute("tragoDto", tDto);
+		return "editarTragoModal";
+	}
+	
+	@RequestMapping("/eliminar-trago")
+	@ResponseBody
+	public String eliminarTrago(@RequestParam Integer idTrago){
+		Trago t = tragoRepository.findById(idTrago);
+		t.setActivo(false);
+		return "OK";
+	}
+	
+	@RequestMapping("/consejos-trago")
+	public String consejosTrago(@RequestParam Integer idTrago, Model model){
+		Trago trago = tragoRepository.findById(idTrago);
+		model.addAttribute("trago", trago);
+		return "consejosModal";
+	}
+	
+	@RequestMapping("/agregar-consejo")
+	public String agregarConsejo(@RequestParam Integer idTrago, @RequestParam String consejoText, Model model, @CookieValue(name = "idUser", required = false) Integer idUser){
+		Trago trago = tragoRepository.findById(idTrago);
+		
+		Consejo c = new Consejo();
+		c.setUsername(usuarioRepository.findById(idUser).getUsername());
+		c.setTexto(consejoText);
+		
+		trago.getConsejos().add(c);
+		tragoRepository.save(trago);
+		model.addAttribute("trago", trago);
+		return "consejosModal";
+	}
+	
+	@RequestMapping("/agregar-puntuacion")
+	@ResponseBody
+	public String agregarPuntuacion(@RequestParam Integer idTrago, @RequestParam float puntuacion, Model model, @CookieValue(name = "idUser", required = false) Integer idUser){
+		Trago t = tragoRepository.findById(idTrago);
+		Puntuacion p = new Puntuacion();
+		p.setUsuario(usuarioRepository.findById(idUser));
+		p.setFecha(new Date());
+		p.setPuntuacion(puntuacion);
+		t.getPuntuaciones().add(p);
+		tragoRepository.save(t);
+		return "OK";
+	}
+	
 	
 	@RequestMapping("/usuarios")
 	public String usuarios(Model model){
