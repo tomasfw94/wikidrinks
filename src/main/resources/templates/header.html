@@ -14,10 +14,7 @@
 	            	<a href="/tragos">Tragos</a>
 	            </li>
 	            <li th:classappend="${pantallaActual == 'misTragos' ? 'active' : ''}">
-	            	<a href="/inicial">Mis Tragos</a>
-	            </li>
-	            <li th:classappend="${pantallaActual == 'presupuesto' ? 'active' : ''}">
-	            	<a href="/inicial">Presupuestos</a>
+	            	<a th:href="@{'/perfil/' + ${loggedUser.id}}">Mis Tragos</a>
 	            </li>
             </ul>
             <ul class="nav navbar-nav" th:if="${loggedUser == null}">
@@ -46,9 +43,9 @@
 			</form>
             <ul class="nav navbar-nav navbar-right" th:if="${loggedUser != null}">
                 <li>
-                    <a href="#" onclick="mostrarPerfil();">
+                    <a href="#" th:onclick="'mostrarPerfil(\'' + ${loggedUser.id} + '\');'">
                    		<i class="fa fa-user-circle-o"></i>
-                  		<span th:text="${loggedUser.username}"></span>
+                  		<span onclick="mostrarPerfil()" th:text="${loggedUser.username}"></span>
                     </a>
                 </li>
                 <li>
@@ -95,6 +92,10 @@ function logOut(){
 	    	}
 	    }
 	});
+}
+
+function mostrarPerfil(id){
+	window.location.href = "http://localhost:8080/perfil/"+id
 }
 
 </script>

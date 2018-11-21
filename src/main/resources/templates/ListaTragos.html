@@ -8,19 +8,19 @@
 				<img th:src="@{${trago.imagen}}" alt="Imagen no disponible" style="max-width: 100%; height: 175px; border: 1px solid #000!important; margin-bottom: 10px "></img>
 				<p>Creado por: <label th:text="${trago.usuario.username}"></label></p>
 				<div th:id="'botoneraTrago' + ${trago.id}" th:if="${loggedUser}">
-					<button type="button" class="btn btn-primary btn-sm col-xs-2" th:if="${loggedUser.id != trago.usuario.id}" style="margin: 0 10px 10px 0" title="Puntuar" th:onclick="'mostrarPuntuarTrago(\'' + ${trago.id} + '\');'">
+					<button type="button" class="btn btn-primary btn-sm col-xs-3" th:if="${loggedUser.id != trago.usuario.id}" style="margin: 0 10px 10px 0" title="Puntuar" th:onclick="'mostrarPuntuarTrago(\'' + ${trago.id} + '\');'">
 						<i class="fa fa-star-o"></i>
 					</button>
-					<button type="button" class="btn btn-primary btn-sm col-xs-2" th:if="${loggedUser.id == trago.usuario.id}" style="margin: 0 10px 10px 0" title="Editar" th:onclick="'editarTrago(\'' + ${trago.id} + '\');'">
+					<button type="button" class="btn btn-primary btn-sm col-xs-3" th:if="${loggedUser.id == trago.usuario.id}" style="margin: 0 10px 10px 0" title="Editar" th:onclick="'editarTrago(\'' + ${trago.id} + '\');'">
 						<i class="fa fa-pencil"></i>
 					</button>
-					<button type="button" class="btn btn-primary btn-sm col-xs-2" title="Ver pasos" style="margin: 0 10px 10px 0">
+					<button type="button" class="btn btn-primary btn-sm col-xs-3" title="Ver pasos" style="margin: 0 10px 10px 0">
 						<i class="fa fa-list-ul"></i>
 					</button>
-					<button type="button" class="btn btn-primary btn-sm col-xs-2" title="Consejos" style="margin: 0 10px 10px 0" th:onclick="'consejosTrago(\'' + ${trago.id} + '\');'">
+					<button type="button" class="btn btn-primary btn-sm col-xs-3" title="Consejos" style="margin: 0 10px 10px 0" th:onclick="'consejosTrago(\'' + ${trago.id} + '\');'">
 						<i class="fa fa-comment-o"></i>
 					</button>
-					<button type="button" class="btn btn-danger btn-sm col-xs-2" th:if="${loggedUser.id == trago.usuario.id}" th:onclick="'eliminarTrago(\'' + ${trago.id} + '\');'" title="Eliminar trago" >
+					<button type="button" class="btn btn-danger btn-sm col-xs-3" th:if="${loggedUser.id == trago.usuario.id}" th:onclick="'eliminarTrago(\'' + ${trago.id} + '\');'" title="Eliminar trago" >
 						<i class="fa fa-trash-o"></i>
 					</button>
 				</div>
@@ -39,7 +39,7 @@
 				<p>Graduación: <label th:text="${trago.graduacion}+'%'"></label></p>
 				<p>Puntuación: <label th:text="${trago.puntuacion}"></label></p>
 				<p>Ingredientes:</p>
-				<p style="margin: 0" th:each="ingrediente:${trago.ingredientes}">- <label th:text="${ingrediente.medida}+'% '+${ingrediente.nombre}"></label></p>
+				<p style="margin: 0" th:each="ingrediente:${trago.ingredientes}"><label th:text="${ingrediente.medida}+'% '+${ingrediente.nombre}"></label></p>
 			</div>
 		</div>
 		<div id="divEditarModal"></div>

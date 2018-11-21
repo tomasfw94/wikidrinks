@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<div th:replace="cssYJs"></div>	
+	<title th:inline="text">Perfil - [[${usuario.username}]]</title>
+</head>
+<body>
+	<div th:replace="header"></div>
+	<div class="col-xs-12 form-group">
+		<div class="col-xs-3">
+			<i class="fa fa-user-circle-o" style="font-size:20em" aria-hidden="true"></i>
+		</div>
+	    <div class="panel panel-default col-xs-6" style="padding: 0">
+		  <div class="panel-heading"><b>Datos personales</b></div>
+		  <div class="panel-body" th:inline="text">
+		  	<p><b>Nombre:</b> [[${usuario.nombre}]] [[${usuario.apellido}]]</p>
+		  	<p><b>Teléfono:</b> [[${usuario.telefono}]]</p> 
+		  	<p><b>Dirección:</b> [[${usuario.direccion}]]</p>
+		  	<p><b>Email:</b> [[${usuario.mail}]]</p>
+		  </div>
+	  	</div>
+	</div>
+	<div class="col-xs-12">
+	    <div class="panel panel-default col-xs-12" style="padding: 0">
+		  <div class="panel-heading"><b>Mis tragos</b></div>
+			  <div class="panel-body" th:replace="listaTragos">
+							  
+			  </div>
+	    </div>
+	</div>
+</body>
+</html>

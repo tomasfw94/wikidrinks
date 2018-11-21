@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -211,6 +212,22 @@ public class ControladorWikidrinks {
 	}
 	
 	
+	@RequestMapping("/perfil/{idUser}")
+	public String usuarios(Model model, @PathVariable Integer idUser, @CookieValue(name = "idUser", required = false) Integer idLoggedUser){
+		
+		List<Trago> tragosUser = new ArrayList<>();
+		
+		for (Trago trago : tragoRepository.findAll()) {
+			if(trago.getUsuario().getId().equals(idUser)) {
+				tragosUser.add(trago);
+			}
+		}
+		
+		model.addAttribute("tragos", tragosUser);
+		model.addAttribute("usuario", usuarioRepository.findById(idUser));
+		model.addAttribute("loggedUser", usuarioRepository.findById(idUser));
+		return "perfilUsuario";
+	}
 	@RequestMapping("/usuarios")
 	public String usuarios(Model model){
 		model.addAttribute("usuario", new Usuario());

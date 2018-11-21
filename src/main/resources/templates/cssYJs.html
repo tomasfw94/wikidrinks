@@ -4,3 +4,27 @@
 <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
 <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="/webjars/jquery-validation/1.13.0/jquery.validate.js"></script>
+
+<style>
+
+p, label, a, span, i, b, div{
+	font-family: cursive;
+}
+
+.modal-dialog{
+	width: 700px!important;
+}
+
+</style>
+
+<script>
+
+function mostrarDivIng(id){
+	$("#divIng"+id).show();
+	var i = id-1;
+	$("#i"+i).hide();
+	$("#ing"+id).prop('disabled', false);
+	$("#medIng"+id).prop('disabled', false);
+	
+}
+</script>
