@@ -3,18 +3,21 @@
 <nav class="navbar navbar-default" th:fragment="header">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="/inicial" style="font-size: 25px">WIKIDRINKS</a>
+            <a class="navbar-brand" href="/inicial" style="font-size: 25px; margin-top: 10px">WIKIDRINKS</a>
         </div>
-        <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav" th:if="${loggedUser != null}">
+        <div id="divHeader" class="navbar-collapse collapse">
+            <ul id="ulHeader" class="nav navbar-nav" th:if="${loggedUser != null}" style="width: 75%">
 	            <li th:classappend="${pantallaActual == 'home' ? 'active' : ''}">
 	            	<a href="/inicial">Home</a>
 	            </li>
 	            <li th:classappend="${pantallaActual == 'tragos' ? 'active' : ''}">
 	            	<a href="/tragos">Tragos</a>
 	            </li>
-	            <li th:classappend="${pantallaActual == 'misTragos' ? 'active' : ''}">
+	            <li th:classappend="${pantallaActual == 'perfil' ? 'active' : ''}">
 	            	<a th:href="@{'/perfil/' + ${loggedUser.id}}">Mis Tragos</a>
+	            </li>
+	            <li style="margin-left: 20%; height: 69px; margin-top: 0" class="btn btn-success">
+	            	<a style="font-size: 25px; color: white; padding-top: 15px!important" href="/no-se-que-tomar">¡No sé QUÉ tomar!</a>
 	            </li>
             </ul>
             <ul class="nav navbar-nav" th:if="${loggedUser == null}">
@@ -32,11 +35,11 @@
                 <li class="dropdown">
 		        	<a href="#" class="dropdown-toggle" onclick="mostrarLogin()" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>&nbsp;Log in</a>
 	          		<ul class="dropdown-menu" id="dropdownLogin" style="display: none">
-			            <li class="col-xs-12"><label>USUARIO/EMAIL</label></li>
-			            <li class="col-xs-12 form-group"><input type="text" name="userMail"/></li>
-			            <li class="col-xs-12"><label>CONTRASEÑA</label></li>
-			            <li class="col-xs-12 form-group"><input type="password" name="pass"/></li>
-			            <li style="text-align: center"><span onclick="logIn()" class="btn btn-primary">Iniciar sesión</span></li>
+			            <li class="col-xs-12" style="height: 25px"><label>USUARIO/EMAIL</label></li>
+			            <li class="col-xs-12 form-group" style="height: 25px"><input type="text" name="userMail"/></li>
+			            <li class="col-xs-12" style="height: 25px"><label>CONTRASEÑA</label></li>
+			            <li class="col-xs-12 form-group" style="height: 25px"><input type="password" name="pass"/></li>
+			            <li style="text-align: center;"><span onclick="logIn()" class="btn btn-primary">Iniciar sesión</span></li>
 		          	</ul>
                 </li>
             </ul>
@@ -101,7 +104,15 @@ function mostrarPerfil(id){
 </script>
 
 <style>
-.container-fluid a{
-	font-family: cursive;font-size: 15px
+	.container-fluid a{
+		font-family: cursive;font-size: 15px
 	}
+	
+	#divHeader li :not(){
+		height: 69px;
+	}	
+	#divHeader li a{
+		padding-top: 25px;
+		height: 69px;
+	}	
 </style>

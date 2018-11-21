@@ -15,7 +15,6 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -135,7 +134,7 @@ public class ControladorWikidrinks {
 	}
 	
 	@RequestMapping("/listar-tragos")
-	public String listarComprobantes(@CookieValue(name = "idUser", required = false) Integer idUser, Model model, @RequestParam String nombre, @RequestParam Float grad, @RequestParam BigDecimal punt){
+	public String listarTragos(@CookieValue(name = "idUser", required = false) Integer idUser, Model model, @RequestParam String nombre, @RequestParam Float grad, @RequestParam BigDecimal punt){
 		List<Trago> tragos = tragoRepository.findAll();
 		List<Trago> tragosReturn = new ArrayList<>();
 		for (Trago trago : tragos) {
@@ -225,162 +224,55 @@ public class ControladorWikidrinks {
 		
 		model.addAttribute("tragos", tragosUser);
 		model.addAttribute("usuario", usuarioRepository.findById(idUser));
-		model.addAttribute("loggedUser", usuarioRepository.findById(idUser));
+		model.addAttribute("loggedUser", usuarioRepository.findById(idLoggedUser));
+		model.addAttribute("pantallaActual", "perfil");
 		return "perfilUsuario";
 	}
-	@RequestMapping("/usuarios")
-	public String usuarios(Model model){
-		model.addAttribute("usuario", new Usuario());
-		return "EditorUsuarios";
+	
+	@RequestMapping("/no-se-que-tomar")
+	public String noSeQueTomar(Model model, @CookieValue(name = "idUser", required = false) Integer idLoggedUser){
+		model.addAttribute("loggedUser", usuarioRepository.findById(idLoggedUser));
+		return "noSeQueTomar";
 	}
-//	
-//	@RequestMapping("/filtrar-comprobantes")
-//	public String filtrarComprobantes(Model model, @RequestParam Integer numero, @RequestParam String cuit, 
-//			@RequestParam String fecha, @RequestParam String estado, HttpSession session){
-//		List<Comprobante> comprobantes = comprobanteRepository.findAll();
-//		List<Comprobante> comprobantes2 = new ArrayList<>();
-//		for (Comprobante comprobante : comprobantes) {
-//			if(pasaFiltro(comprobante, numero, cuit, fecha, estado) && !comprobante.getEstado().equalsIgnoreCase("INACTIVO")) {
-//				comprobantes2.add(comprobante);
-//			}
-//		}
-//		model.addAttribute("comprobantes", comprobantes2);
-//		return "ListaComprobantes";
-//	}
-//	
-//	@RequestMapping("/eliminar-comprobante")
-//	@ResponseStatus(value = HttpStatus.OK)
-//	public void eliminarComprobante(@RequestParam Integer id){
-//		Comprobante c = comprobanteRepository.findById(id);
-//		c.setEstado("INACTIVO");
-//		comprobanteRepository.save(c);
-//	}
-//	
-//	@RequestMapping("/enviar-mail")
-//	@ResponseStatus(value = HttpStatus.OK)
-//	public void enviarMail(@RequestParam Integer id) throws MessagingException{
-//		Comprobante c = comprobanteRepository.findById(id);
-//		MimeMessage message = sender.createMimeMessage();
-//        MimeMessageHelper helper = new MimeMessageHelper(message);
-//        
-//        helper.setTo("tomasfw94@gmail.com");
-//        helper.setSubject("Estado de Comprobante número "+c.getId());
-//        helper.setText("Su comprobante "+c.getId()+" se encuentra en estado "+c.getEstado());
-//        
-//        sender.send(message);
-//	}
-//	
-//	@RequestMapping("/modificar-comprobante/{id}")
-//	public String modificarComprobante(@PathVariable Integer id, Model model){
-//		Comprobante comprobante = comprobanteRepository.findById(id);
-//		model.addAttribute("comprobante", comprobante);
-//		return "ModificarComprobante";
-//	}
-//	
-//	@RequestMapping("/guardar-comprobante")
-//	public String guardarComprobante(@ModelAttribute Comprobante comprobante){
-//		Comprobante c = comprobanteRepository.findById(comprobante.getId());
-//		comprobante.setFecha(c.getFecha());
-//		comprobante.setProveedor(c.getProveedor());
-//		comprobanteRepository.save(comprobante);
-//		return comprobantes();
-//	}
-//	
-//	@RequestMapping("/proveedores")
-//	public String proveedores(){
-//		return "Proveedores";
-//	}
-//	
-//	@RequestMapping("/listar-proveedores")
-//	public String listarProveedores(Model model){
-//		List<Proveedor> prov = proveedorRepository.findAll();
-//		List<Proveedor> prov2 = new ArrayList<>();
-//		for (Proveedor proveedor : prov) {
-//			if(proveedor.getActivo()) {
-//				prov2.add(proveedor);
-//			}
-//		}
-//		model.addAttribute("proveedores", prov2);
-//		return "ListaProveedores";
-//	}
-//	
-//	@RequestMapping("/filtrar-proveedores")
-//	public String filtrarProveedores(Model model, @RequestParam String cuit){
-//		List<Proveedor> prov = proveedorRepository.findAll();
-//		List<Proveedor> prov2 = new ArrayList<>();
-//		for (Proveedor proveedor : prov) {
-//			if(proveedor.getCuit().equalsIgnoreCase(cuit) && proveedor.getActivo()) {
-//				prov2.add(proveedor);
-//			}
-//		}
-//		model.addAttribute("proveedores", prov2);
-//		return "ListaProveedores";
-//	}
-//	
-//	@RequestMapping("/eliminar-proveedor")
-//	@ResponseStatus(value = HttpStatus.OK)
-//	public void eliminarProveedor(@RequestParam Integer id){
-//		Proveedor prov = proveedorRepository.findById(id);
-//		prov.setActivo(false);;
-//		proveedorRepository.save(prov);
-//	}
-//	
-//	@RequestMapping("/modificar-proveedor/{id}")
-//	public String modificarProveedor(@PathVariable Integer id, Model model){
-//		Proveedor prov = proveedorRepository.findById(id);
-//		model.addAttribute("proveedor", prov);
-//		return "EditorProveedor";
-//	}
-//	
-//	@RequestMapping("/nuevo-proveedor")
-//	public String nuevoProveedor(Model model){
-//		model.addAttribute("proveedor", new Proveedor());
-//		return "EditorProveedor";
-//	}
-//	
-//	@RequestMapping("/guardar-proveedor")
-//	public String guardarProveedor(@ModelAttribute Proveedor proveedor){
-//		proveedor.setActivo(true);
-//		proveedorRepository.save(proveedor);
-//		return proveedores();
-//	}
-//	
-	/*@RequestMapping("/listar-usuarios")
-	public String listarusuarios(Model model){
-		List<Usuario> usuario = usuarioRepository.findAll();
-        List <Usuario> usuario2 = new ArrayList<>();
-		for (Usuario user : usuario) {
-			if(user.getActivo()) {
-				usuario2.add(user);
+	
+	@RequestMapping("/listar-tragos-para-tomar")
+	public String listarTragosParaTomar(@CookieValue(name = "idUser", required = false) Integer idUser, Model model,  @RequestBody TragoDTO tragoDto){
+		
+		List<Trago> tragos = tragoRepository.findAll();
+		List<Trago> tragosReturn = new ArrayList<>();
+		
+		for (Trago trago : tragos) {
+			if(trago.getActivo()) {
+				if(trago.getGraduacion().compareTo(tragoDto.getGraduacionMin()) > 0 && trago.getGraduacion().compareTo(tragoDto.getGraduacionMax()) < 0) {
+					Boolean tiposOk = false;
+					if(tragoDto.getTipos() == null || tragoDto.getTipos().isEmpty()) {
+						tiposOk = true;
+					}else {
+						for (String tipoDTO : tragoDto.getTipos()) {
+							if(trago.getNombreTipos().contains(tipoDTO)) {
+								tiposOk = true;
+								break;
+							}
+						}
+					}
+					if(tiposOk) {
+						double cantIngTrago = trago.getIngredientes().size();
+						double cantIngCoincidencias = 0;
+						for (String ingDto : tragoDto.getNombresIngredientesDTO()) {
+							if(trago.getNombresIngredientes().contains(ingDto)) {
+								cantIngCoincidencias++;
+							}
+						}
+						if(cantIngCoincidencias/cantIngTrago > 0.6) {
+							tragosReturn.add(trago);
+						}
+					}
+				}
 			}
 		}
-		model.addAttribute("usuarios", usuario2);
-		return "ListaUsuarios";
-	}*/
-	
-		
-	@RequestMapping("/guardar-usuario")
-	public String guardarUsuario(@ModelAttribute Usuario usuario, Model model){
-		usuario.setActivo(true);
-		usuarioRepository.save(usuario);
-		return usuarios(model);
+		model.addAttribute("tragos", tragosReturn);
+		model.addAttribute("pantallaActual", "tragosRecomendados");
+		model.addAttribute("loggedUser", usuarioRepository.findById(idUser));
+		return "listaTragos";
 	}
-	
-//	private boolean pasaFiltro(Comprobante comprobante, Integer numero, String cuit, String fecha, String estado) {
-//		Boolean pasa = true;
-//		if(numero != null && !comprobante.getId().equals(numero)){
-//			pasa = false;
-//		}		
-//		if(!cuit.isEmpty() && !comprobante.getProveedor().getCuit().equalsIgnoreCase(cuit)){
-//			pasa = false;
-//		}		
-//		String fechaComp = new SimpleDateFormat("yyyy-MM-dd").format(comprobante.getFecha());
-//		if(!fecha.isEmpty() && !fechaComp.equalsIgnoreCase(fecha)){
-//			pasa = false;
-//		}		
-//		if(!estado.isEmpty() && !comprobante.getEstado().equalsIgnoreCase(estado)){
-//			pasa = false;
-//		}
-//		return pasa;
-//	}
 }

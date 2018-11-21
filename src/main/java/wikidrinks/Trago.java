@@ -31,7 +31,7 @@ public class Trago {
 	private String vaso;
     
     @Column(name="graduacion")
-    private float graduacion;
+    private Float graduacion;
     
     @Column(name="imagen")
     private String imagen;
@@ -54,6 +54,9 @@ public class Trago {
     
     @OneToMany(cascade = CascadeType.ALL)
     private List<Consejo> consejos = new ArrayList<>();
+    
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<TipoTrago> tipos = new ArrayList<>();
 
 	public Integer getId() {
 		return id;
@@ -79,11 +82,11 @@ public class Trago {
 		this.vaso = vaso;
 	}
 
-	public float getGraduacion() {
+	public Float getGraduacion() {
 		return graduacion;
 	}
 
-	public void setGraduacion(float graduacion) {
+	public void setGraduacion(Float graduacion) {
 		this.graduacion = graduacion;
 	}
 
@@ -188,7 +191,6 @@ public class Trago {
 			t.setMedIng7(ings.get(6).getMedida());
 		}
 		
-		
 		return t;
 	}
 
@@ -198,5 +200,33 @@ public class Trago {
 
 	public void setConsejos(List<Consejo> consejos) {
 		this.consejos = consejos;
+	}
+
+	public List<TipoTrago> getTipos() {
+		return tipos;
+	}
+
+	public void setTipos(List<TipoTrago> tipos) {
+		this.tipos = tipos;
+	}
+	
+	public List<String> getNombresIngredientes(){
+		List<String> nombres = new ArrayList<>();
+		
+		for (Ingrediente ing : ingredientes) {
+			nombres.add(ing.getNombre().toUpperCase());
+		}
+		
+		return nombres;
+	}
+
+	public List<String> getNombreTipos() {
+		List<String> nombres = new ArrayList<>();
+		
+		for (TipoTrago tipo : tipos) {
+			nombres.add(tipo.getNombre());
+		}
+		
+		return nombres;
 	}
 }

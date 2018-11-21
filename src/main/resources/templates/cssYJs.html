@@ -1,13 +1,16 @@
 <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css"/>
-<link rel="stylesheet" href="/webjars/font-awesome/css/font-awesome.min.css"></link>
+<link rel="stylesheet" type="text/css" href="/webjars/font-awesome/css/font-awesome.min.css"></link>
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.15/css/bootstrap-multiselect.css"></link>
 <link rel="icon" href="https://banner2.kisspng.com/20180402/cyw/kisspng-bourbon-whiskey-old-fashioned-scotch-whisky-jameso-whiskey-5ac2b4cf8eb666.1018153215227097115846.jpg"></link>
 <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
 <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="/webjars/jquery-validation/1.13.0/jquery.validate.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.15/js/bootstrap-multiselect.js"></script>
+
 
 <style>
 
-p, label, a, span, i, b, div{
+p, label, a, span, i, b, div, input{
 	font-family: cursive;
 }
 
@@ -15,16 +18,40 @@ p, label, a, span, i, b, div{
 	width: 700px!important;
 }
 
+input {
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    }
+
 </style>
 
 <script>
 
-function mostrarDivIng(id){
-	$("#divIng"+id).show();
-	var i = id-1;
-	$("#i"+i).hide();
-	$("#ing"+id).prop('disabled', false);
-	$("#medIng"+id).prop('disabled', false);
+	function mostrarDivIng(id){
+		$("#divIng"+id).show();
+		var i = id-1;
+		$("#i"+i).hide();
+		$("#ing"+id).prop('disabled', false);
+		$("#medIng"+id).prop('disabled', false);
+		$("#ing"+id).focus();
+	}
 	
-}
+	function eliminarIngrediente(id){
+		$("#divIng"+id).hide();
+		$("#ing"+id).val(null);
+		$("#medIng"+id).val(null);
+	}
+	
+	function eliminarIng(id){
+		$("#divIng"+id).hide();
+		var i = id-1;
+		$("#i"+i).show();
+		$("#ing"+id).prop('disabled', true);
+		$("#medIng"+id).prop('disabled', true);
+	}
 </script>

@@ -14,6 +14,9 @@ public class TragoDTO {
 	private Boolean activo;
 	private String vaso;
     private float graduacion;
+    private Float graduacionMin;
+    private Float graduacionMax;
+    private List<String> tipos;
     private String urlImagen;
     private String ing1;
     private String ing2;
@@ -22,6 +25,9 @@ public class TragoDTO {
     private String ing5;
     private String ing6;
     private String ing7;
+    private String ing8;
+    private String ing9;
+    private String ing10;
     private float medIng1;
     private float medIng2;
     private float medIng3;
@@ -225,8 +231,166 @@ public class TragoDTO {
 			ingredientes.add(ing7);
 		}
 		
+		if(tipos != null) {
+			List<TipoTrago> tiposTrago = new ArrayList<>();
+			
+			for (String nombre : tipos) {
+				TipoTrago tt = new TipoTrago();
+				tt.setNombre(nombre);
+				tiposTrago.add(tt);
+			}
+			
+			trago.setTipos(tiposTrago);
+		}
+		
 		trago.setIngredientes(ingredientes);
 		
 		return trago;
 	}
+	public List<String> getTipos() {
+		return tipos;
+	}
+	public void setTipos(List<String> tipos) {
+		this.tipos = tipos;
+	}
+	public String getIng8() {
+		return ing8;
+	}
+	public void setIng8(String ing8) {
+		this.ing8 = ing8;
+	}
+	public String getIng9() {
+		return ing9;
+	}
+	public void setIng9(String ing9) {
+		this.ing9 = ing9;
+	}
+	public String getIng10() {
+		return ing10;
+	}
+	public void setIng10(String ing10) {
+		this.ing10 = ing10;
+	}
+	public List<Ingrediente> getIngredientes(){
+		List<Ingrediente> ingredientes = new ArrayList<>();
+		
+		if(!StringUtils.isBlank(getIng1())) {
+			Ingrediente ing1 = new Ingrediente();
+			ing1.setNombre(getIng1());
+			ing1.setMedida(getMedIng1());
+			ingredientes.add(ing1);
+		}
+		
+		if(!StringUtils.isBlank(getIng2())) {
+			Ingrediente ing2 = new Ingrediente();
+			ing2.setNombre(getIng2());
+			ing2.setMedida(getMedIng2());
+			ingredientes.add(ing2);
+		}
+		
+		if(!StringUtils.isBlank(getIng3())) {
+			Ingrediente ing3 = new Ingrediente();
+			ing3.setNombre(getIng3());
+			ing3.setMedida(getMedIng3());
+			ingredientes.add(ing3);
+		}
+		
+		if(!StringUtils.isBlank(getIng4())) {
+			Ingrediente ing4 = new Ingrediente();
+			ing4.setNombre(getIng4());
+			ing4.setMedida(getMedIng4());
+			ingredientes.add(ing4);
+		}
+		
+		if(!StringUtils.isBlank(getIng5())) {
+			Ingrediente ing5 = new Ingrediente();
+			ing5.setNombre(getIng5());
+			ing5.setMedida(getMedIng5());
+			ingredientes.add(ing5);
+		}
+		
+		if(!StringUtils.isBlank(getIng6())) {
+			Ingrediente ing6 = new Ingrediente();
+			ing6.setNombre(getIng6());
+			ing6.setMedida(getMedIng6());
+			ingredientes.add(ing6);
+		}
+		
+		if(!StringUtils.isBlank(getIng7())) {
+			Ingrediente ing7 = new Ingrediente();
+			ing7.setNombre(getIng7());
+			ing7.setMedida(getMedIng7());
+			ingredientes.add(ing7);
+		}
+		
+		if(!StringUtils.isBlank(getIng8())) {
+			Ingrediente ing8 = new Ingrediente();
+			ing8.setNombre(getIng8());
+			ingredientes.add(ing8);
+		}
+		if(!StringUtils.isBlank(getIng9())) {
+			Ingrediente ing9 = new Ingrediente();
+			ing9.setNombre(getIng9());
+			ingredientes.add(ing9);
+		}
+		if(!StringUtils.isBlank(getIng10())) {
+			Ingrediente ing10 = new Ingrediente();
+			ing10.setNombre(getIng10());
+			ingredientes.add(ing10);
+		}
+		
+		return ingredientes;
+		
+	}
+	
+	public List<String> getNombresIngredientesDTO(){
+		List<String> nombres = new ArrayList<>();
+		
+		if(!StringUtils.isBlank(getIng1())) {
+			nombres.add(getIng1().toUpperCase());
+		}
+		if(!StringUtils.isBlank(getIng2())) {
+			nombres.add(getIng2().toUpperCase());
+		}
+		if(!StringUtils.isBlank(getIng3())) {
+			nombres.add(getIng3().toUpperCase());
+		}
+		if(!StringUtils.isBlank(getIng4())) {
+			nombres.add(getIng4().toUpperCase());
+		}
+		if(!StringUtils.isBlank(getIng5())) {
+			nombres.add(getIng5().toUpperCase());
+		}
+		if(!StringUtils.isBlank(getIng6())) {
+			nombres.add(getIng6().toUpperCase());
+		}
+		if(!StringUtils.isBlank(getIng7())) {
+			nombres.add(getIng7().toUpperCase());
+		}
+		if(!StringUtils.isBlank(getIng8())) {
+			nombres.add(getIng8().toUpperCase());
+		}
+		if(!StringUtils.isBlank(getIng9())) {
+			nombres.add(getIng9().toUpperCase());
+		}
+		if(!StringUtils.isBlank(getIng10())) {
+			nombres.add(getIng10().toUpperCase());
+		}
+		
+		return nombres;
+	}
+	public Float getGraduacionMin() {
+		return graduacionMin;
+	}
+	public void setGraduacionMin(Float graduacionMin) {
+		this.graduacionMin = graduacionMin;
+	}
+	public Float getGraduacionMax() {
+		return graduacionMax;
+	}
+	public void setGraduacionMax(Float graduacionMax) {
+		this.graduacionMax = graduacionMax;
+	}
+	
+		
 }

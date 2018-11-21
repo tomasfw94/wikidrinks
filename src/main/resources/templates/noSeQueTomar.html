@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<div th:replace="cssYJs"></div>
+	<title>Wikidrinks</title>
+</head>
+<body>
+  <div th:replace="header"></div>
+  <form id="formQueTomar">
+  
+  <div id="divPaso1" class="col-xs-12">
+	  <div class="panel panel-default" style="width: 75%;margin-left: 15%;">
+		  <div class="panel-heading">
+		    <h2>1. Decinos qué ingredientes tenés</h2>
+		  </div>
+		  <div class="panel-body">
+		   	 <div id="divIng1" class="col-xs-12 form-group">
+				<label class="col-xs-2">Ingrediente 1:</label>
+				<input class="col-xs-3" type="text" name="ing1" required="required"/>
+				<i id="i1" onclick="mostrarDivIng(2)" style="font-size: 25px; margin-left: 10px; cursor: pointer;" class="fa fa-plus-circle"></i>
+	     	 </div>
+	     	 <div id="divIng2" class="col-xs-12 form-group" style="display: none">
+				<label class="col-xs-2">Ingrediente 2:</label>
+				<input class="col-xs-3" type="text" name="ing2" id="ing2"/>
+				<i onclick="eliminarIng(2)" style="font-size: 25px; margin-left: 10px; cursor: pointer; color: red" class="fa fa-minus-circle"></i>
+				<i id="i2" onclick="mostrarDivIng(3)" style="font-size: 25px; margin-left: 10px; cursor: pointer;" class="fa fa-plus-circle"></i>
+	     	 </div>
+	     	 <div id="divIng3" class="col-xs-12 form-group" style="display: none">
+				<label class="col-xs-2">Ingrediente 3:</label>
+				<input class="col-xs-3" type="text" name="ing3" id="ing3"/>
+				<i onclick="eliminarIng(3)" style="font-size: 25px; margin-left: 10px; cursor: pointer; color: red" class="fa fa-minus-circle"></i>
+				<i id="i3" onclick="mostrarDivIng(4)" style="font-size: 25px; margin-left: 10px; cursor: pointer;" class="fa fa-plus-circle"></i>
+	     	 </div>
+	     	 <div id="divIng4" class="col-xs-12 form-group" style="display: none">
+				<label class="col-xs-2">Ingrediente 4:</label>
+				<input class="col-xs-3" type="text" name="ing4" id="ing4"/>
+				<i onclick="eliminarIng(4)" style="font-size: 25px; margin-left: 10px; cursor: pointer; color: red" class="fa fa-minus-circle"></i>
+				<i id="i4" onclick="mostrarDivIng(5)" style="font-size: 25px; margin-left: 10px; cursor: pointer;" class="fa fa-plus-circle"></i>
+	     	 </div>
+	     	 <div id="divIng5" class="col-xs-12 form-group" style="display: none">
+				<label class="col-xs-2">Ingrediente 5:</label>
+				<input class="col-xs-3" type="text" name="ing5" id="ing5"/>
+				<i onclick="eliminarIng(5)" style="font-size: 25px; margin-left: 10px; cursor: pointer; color: red" class="fa fa-minus-circle"></i>
+				<i id="i5" onclick="mostrarDivIng(6)" style="font-size: 25px; margin-left: 10px; cursor: pointer;" class="fa fa-plus-circle"></i>
+	     	 </div>
+	     	 <div id="divIng6" class="col-xs-12 form-group" style="display: none">
+				<label class="col-xs-2">Ingrediente 6:</label>
+				<input class="col-xs-3" type="text" name="ing6" id="ing6"/>
+				<i onclick="eliminarIng(6)" style="font-size: 25px; margin-left: 10px; cursor: pointer; color: red" class="fa fa-minus-circle"></i>
+				<i id="i6" onclick="mostrarDivIng(7)" style="font-size: 25px; margin-left: 10px; cursor: pointer;" class="fa fa-plus-circle"></i>
+	     	 </div>
+	     	 <div id="divIng7" class="col-xs-12 form-group" style="display: none">
+				<label class="col-xs-2">Ingrediente 7:</label>
+				<input class="col-xs-3" type="text" name="ing7" id="ing7"/>
+				<i onclick="eliminarIng(7)" style="font-size: 25px; margin-left: 10px; cursor: pointer; color: red" class="fa fa-minus-circle"></i>
+				<i id="i7" onclick="mostrarDivIng(8)" style="font-size: 25px; margin-left: 10px; cursor: pointer;" class="fa fa-plus-circle"></i>
+	     	 </div>
+	     	 <div id="divIng8" class="col-xs-12 form-group" style="display: none">
+				<label class="col-xs-2">Ingrediente 8:</label>
+				<input class="col-xs-3" type="text" name="ing8" id="ing8"/>
+				<i onclick="eliminarIng(8)" style="font-size: 25px; margin-left: 10px; cursor: pointer; color: red" class="fa fa-minus-circle"></i>
+	     		<i id="i8" onclick="mostrarDivIng(9)" style="font-size: 25px; margin-left: 10px; cursor: pointer;" class="fa fa-plus-circle"></i>	
+	     	 </div>
+	     	 <div id="divIng9" class="col-xs-12 form-group" style="display: none">
+				<label class="col-xs-2">Ingrediente 9:</label>
+				<input class="col-xs-3" type="text" name="ing9" id="ing9"/>
+				<i onclick="eliminarIng(9)" style="font-size: 25px; margin-left: 10px; cursor: pointer; color: red" class="fa fa-minus-circle"></i>
+	     		<i id="i9" onclick="mostrarDivIng(10)" style="font-size: 25px; margin-left: 10px; cursor: pointer;" class="fa fa-plus-circle"></i>	
+	     	 </div>
+	     	 <div id="divIng10" class="col-xs-12 form-group" style="display: none">
+				<label class="col-xs-2">Ingrediente 10:</label>
+				<input class="col-xs-3" type="text" name="ing10" id="ing10"/>
+				<i id="i10" onclick="eliminarIng(10)" style="font-size: 25px; margin-left: 10px; cursor: pointer; color: red" class="fa fa-minus-circle"></i>
+	     	 </div>
+	     	 <div class="col-xs-12 ">
+	     	 	<span onclick="mostrarPaso(2);" class="btn btn-primary" style="float: right; font-size: 20px;">Continuar</span>
+	     	 </div>
+		  </div>
+	  </div>
+  </div>
+  <div id="divPaso2" class="col-xs-12" style="display: none">
+	  <div class="panel panel-default" style="width: 75%;margin-left: 15%;">
+		  <div class="panel-heading">
+		    <h2>2. ¿Qué graduación alcohólica buscás?</h2>
+		  </div>
+		  <div class="panel-body">
+	     	 <div class="col-xs-12 form-group">
+				<label class="col-xs-2" >Más de:</label>
+				<input class="col-xs-4" type="number" name="graduacionMin" min="0" max="100" value="0"/>
+	     	 </div>
+	     	 <div class="col-xs-12 form-group">
+				<label class="col-xs-2" >Menos de:</label>
+				<input class="col-xs-4" type="number" name="graduacionMax" min="0" max="100" value="100"/>
+	     	 </div>
+	     	 <div class="col-xs-12">
+	     	 	<span onclick="mostrarPaso(3);" class="btn btn-primary" style="float: right;">Continuar</span>
+	     	 	<span onclick="volverPaso(1);" class="btn btn-primary" style="margin-right: 20px; float: right;">Volver</span>
+	     	 </div>
+		  </div>
+	  </div>
+  </div>
+  <div id="divPaso3" class="col-xs-12" style="display: none">
+	  <div class="panel panel-default" style="width: 75%;margin-left: 15%;">
+		  <div class="panel-heading">
+		    <h2>3. ¿Qué tipo de trago te gustaría tomar?</h2>
+		  </div>
+		  <div class="panel-body">
+			  <div class="col-xs-12">
+			  	<select id="selectTipoTrago" multiple="multiple" name="tipos">
+					    <option value="Frutado">Frutado</option>
+					    <option value="Fuerte">Fuerte</option>
+					    <option value="Suave">Suave</option>
+					    <option value="Seco">Seco</option>
+					    <option value="Fresco">Fresco</option>
+					    <option value="Aperitivo">Aperitivo</option>
+					    <option value="Largo">Largo</option>
+					    <option value="Corto">Corto</option>
+					    <option value="Frío">Frío</option>
+					    <option value="Caliente">Caliente</option>
+					</select>
+					<label>&nbsp;*Dejar en blanco para no filtrar</label>
+			  </div>
+	     	 <div class="col-xs-12">
+	     	 	<span onclick="queTomar();" class="btn btn-success" style="float: right;">¡Salud!</span>
+	     	 	<span onclick="volverPaso(2);" class="btn btn-primary" style="margin-right: 20px; float: right; ">Volver</span>
+	     	 </div>
+		  </div>
+	  </div>
+  </div>
+  
+  </form>
+  
+  <div id="tablaTragos" class="col-xs-12" style="display: none;"></div>
+  
+</body>
+
+	<style>
+	
+		hr{
+			border-top: 3px solid #514c4c;
+			margin-top: 15px	
+		}
+		.panel-body label, input {
+			font-size: 19px;
+		}
+		
+		.panel-default span{
+			font-size: 20px;
+			width: 120px
+		}
+		
+		.error{
+			color:red;
+		}
+		
+	</style>
+	
+	<script>
+	$(document).ready(function() {
+		  $('#selectTipoTrago').multiselect({
+			 	nonSelectedText: 'Seleccione',
+	            allSelectedText: 'Todos',
+	            nSelectedText: ' seleccionados',
+	            buttonWidth: '700px'
+	      });
+	});
+	
+	$.validator.messages.min = "Valor entre 0 y 100";
+	$.validator.messages.max = "Valor entre 0 y 100";
+	$.validator.messages.required = "Este campo es requerido";
+	
+		function eliminarIngrediente(id){
+			$("#divIng"+id).hide();
+			$("#ing"+id).val(null);
+			$("#medIng"+id).val(null);
+		}
+		
+		function volverPaso(paso){
+			var p = paso+1;
+			$("#divPaso"+p).hide('fade');
+			$("#divPaso"+paso).show('fade');
+		}
+		
+		function mostrarPaso(paso){
+			if($("#formQueTomar").valid()){
+				var p = paso-1;
+				$("#divPaso"+p).hide('fade');
+				$("#divPaso"+paso).show('fade');
+			}
+		}
+		
+		function queTomar(){
+			var formJqObj = $("#formQueTomar");
+		    var formDataObj = {};
+		    (function(){
+		        formJqObj.find(":input").not("[type='submit']").not("[type='reset']").each(function(){
+		            var thisInput = $(this);
+		            formDataObj[thisInput.attr("name")] = thisInput.val();
+		        });
+		    })();
+			
+			$.ajax({
+			    type: 'POST',
+			    url: "/listar-tragos-para-tomar/",
+			    contentType: "application/json",
+			    data: JSON.stringify(formDataObj),
+			    success: function (data) {
+			    	$('#tablaTragos').html(data);
+			    	$("#formQueTomar").fadeOut('slow', function() { $('#tablaTragos').fadeIn() });
+			    }
+			});
+		}
+	</script>
+
+</html>

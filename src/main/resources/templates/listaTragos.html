@@ -2,6 +2,12 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 	<body>
+
+		<div th:if="${pantallaActual == 'tragosRecomendados'}">
+			<h2 style="margin-top: 0px">Tragos recomendados para vos</h2>
+			<hr style="border-top:3px solid #6e6b6b; margin-top: 10px;"></hr>
+		</div>
+	
 		<div class="col-xs-4 panel panel-default" th:each="trago : ${tragos}" style="padding-left: 0px; min-height:370px ">
 			<h3 th:inline="text" style="text-align: center; margin-top: 10px">[[${trago.nombre}]] <small th:if="${trago.tragoAutor}">(Trago de autor)</small></h3>
 			<div class="col-xs-6">
