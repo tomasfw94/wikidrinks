@@ -12,8 +12,10 @@
 		<div class="col-xs-4 panel panel-default" th:each="trago : ${tragos}" style="padding-left: 0px; min-height:370px ">
 			<h3 th:inline="text" style="text-align: center; margin-top: 10px">[[${trago.nombre}]] <small th:if="${trago.tragoAutor}">(Trago de autor)</small></h3>
 			<div class="col-xs-6">
-				<img th:src="@{${trago.imagen}}" alt="Imagen no disponible" style="max-width: 100%; height: 175px; border: 1px solid #000!important; padding: 0.1px "></img>
-				<p>Creado por: <label th:text="${trago.usuario.username}"></label></p>
+				<div style="padding: 0.1px; margin-bottom: 10px; border: 1px solid #000!important;width: fit-content">
+					<img th:src="@{${trago.imagen}}" alt="Imagen no disponible" style="max-width: 100%; height: 175px;"></img>
+				</div>
+				<p>Creado por: <label th:onclick="'mostrarPerfil(\'' + ${trago.usuario.id} + '\');'" th:text="${trago.usuario.username}" style="cursor: pointer"></label></p>
 				<div th:id="'botoneraTrago' + ${trago.id}" th:if="${loggedUser}">
 					<button type="button" class="btn btn-primary btn-sm col-xs-3" th:if="${loggedUser.id != trago.usuario.id}" style="margin: 0 10px 10px 0" title="Puntuar" th:onclick="'mostrarPuntuarTrago(\'' + ${trago.id} + '\');'">
 						<i class="fa fa-star-o"></i>
