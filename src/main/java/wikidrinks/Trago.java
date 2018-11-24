@@ -214,7 +214,7 @@ public class Trago {
 		List<String> nombres = new ArrayList<>();
 		
 		for (Ingrediente ing : ingredientes) {
-			nombres.add(ing.getNombre().toUpperCase());
+			nombres.add(ing.getNombre().toUpperCase().replaceAll("\\s",""));
 		}
 		
 		return nombres;
@@ -224,7 +224,7 @@ public class Trago {
 		List<String> nombres = new ArrayList<>();
 		
 		for (TipoTrago tipo : tipos) {
-			nombres.add(tipo.getNombre());
+			nombres.add(tipo.getNombre().toUpperCase().replaceAll("\\s",""));
 		}
 		
 		return nombres;

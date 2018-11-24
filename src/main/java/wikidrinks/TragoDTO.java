@@ -347,34 +347,34 @@ public class TragoDTO {
 		List<String> nombres = new ArrayList<>();
 		
 		if(!StringUtils.isBlank(getIng1())) {
-			nombres.add(getIng1().toUpperCase());
+			nombres.add(getIng1().toUpperCase().replaceAll("\\s",""));
 		}
 		if(!StringUtils.isBlank(getIng2())) {
-			nombres.add(getIng2().toUpperCase());
+			nombres.add(getIng2().toUpperCase().replaceAll("\\s",""));
 		}
 		if(!StringUtils.isBlank(getIng3())) {
-			nombres.add(getIng3().toUpperCase());
+			nombres.add(getIng3().toUpperCase().replaceAll("\\s",""));
 		}
 		if(!StringUtils.isBlank(getIng4())) {
-			nombres.add(getIng4().toUpperCase());
+			nombres.add(getIng4().toUpperCase().replaceAll("\\s",""));
 		}
 		if(!StringUtils.isBlank(getIng5())) {
-			nombres.add(getIng5().toUpperCase());
+			nombres.add(getIng5().toUpperCase().replaceAll("\\s",""));
 		}
 		if(!StringUtils.isBlank(getIng6())) {
-			nombres.add(getIng6().toUpperCase());
+			nombres.add(getIng6().toUpperCase().replaceAll("\\s",""));
 		}
 		if(!StringUtils.isBlank(getIng7())) {
-			nombres.add(getIng7().toUpperCase());
+			nombres.add(getIng7().toUpperCase().replaceAll("\\s",""));
 		}
 		if(!StringUtils.isBlank(getIng8())) {
-			nombres.add(getIng8().toUpperCase());
+			nombres.add(getIng8().toUpperCase().replaceAll("\\s",""));
 		}
 		if(!StringUtils.isBlank(getIng9())) {
-			nombres.add(getIng9().toUpperCase());
+			nombres.add(getIng9().toUpperCase().replaceAll("\\s",""));
 		}
 		if(!StringUtils.isBlank(getIng10())) {
-			nombres.add(getIng10().toUpperCase());
+			nombres.add(getIng10().toUpperCase().replaceAll("\\s",""));
 		}
 		
 		return nombres;
@@ -390,6 +390,9 @@ public class TragoDTO {
 	}
 	public void setGraduacionMax(Float graduacionMax) {
 		this.graduacionMax = graduacionMax;
+	}
+	public boolean esMedidaValida() {
+		return medIng1+medIng2+medIng3+medIng4+medIng5+medIng6+medIng7 > 100 ? false : true;
 	}
 	
 		

@@ -15,63 +15,63 @@
 		    <h2>1. Decinos qué ingredientes tenés</h2>
 		  </div>
 		  <div class="panel-body">
-		   	 <div id="divIng1" class="col-xs-12 form-group">
-				<label class="col-xs-2">Ingrediente 1:</label>
+		   	 <div id="divIngNST1" class="col-xs-12 form-group">
+				<label class="col-xs-3">Ingrediente 1:</label>
 				<input class="col-xs-3" type="text" name="ing1" required="required"/>
-				<i id="i1" onclick="mostrarDivIng(2)" style="font-size: 25px; margin-left: 10px; cursor: pointer;" class="fa fa-plus-circle"></i>
+				<i id="iNST1" onclick="mostrarDivIngNST(2)" style="font-size: 25px; margin-left: 10px; cursor: pointer;" class="fa fa-plus-circle"></i>
 	     	 </div>
-	     	 <div id="divIng2" class="col-xs-12 form-group" style="display: none">
-				<label class="col-xs-2">Ingrediente 2:</label>
-				<input class="col-xs-3" type="text" name="ing2" id="ing2"/>
-				<i onclick="eliminarIng(2)" style="font-size: 25px; margin-left: 10px; cursor: pointer; color: red" class="fa fa-minus-circle"></i>
-				<i id="i2" onclick="mostrarDivIng(3)" style="font-size: 25px; margin-left: 10px; cursor: pointer;" class="fa fa-plus-circle"></i>
+	     	 <div id="divIngNST2" class="col-xs-12 form-group" style="display: none">
+				<label class="col-xs-3">Ingrediente 2:</label>
+				<input class="col-xs-3" type="text" name="ing2" id="ingNST2"/>
+				<i onclick="eliminarIngNST(2)" style="font-size: 25px; margin-left: 10px; cursor: pointer; color: red" class="fa fa-minus-circle"></i>
+				<i id="iNST2" onclick="mostrarDivIngNST(3)" style="font-size: 25px; margin-left: 10px; cursor: pointer;" class="fa fa-plus-circle"></i>
 	     	 </div>
-	     	 <div id="divIng3" class="col-xs-12 form-group" style="display: none">
-				<label class="col-xs-2">Ingrediente 3:</label>
-				<input class="col-xs-3" type="text" name="ing3" id="ing3"/>
-				<i onclick="eliminarIng(3)" style="font-size: 25px; margin-left: 10px; cursor: pointer; color: red" class="fa fa-minus-circle"></i>
-				<i id="i3" onclick="mostrarDivIng(4)" style="font-size: 25px; margin-left: 10px; cursor: pointer;" class="fa fa-plus-circle"></i>
+	     	 <div id="divIngNST3" class="col-xs-12 form-group" style="display: none">
+				<label class="col-xs-3">Ingrediente 3:</label>
+				<input class="col-xs-3" type="text" name="ing3" id="ingNST3"/>
+				<i onclick="eliminarIngNST(3)" style="font-size: 25px; margin-left: 10px; cursor: pointer; color: red" class="fa fa-minus-circle"></i>
+				<i id="iNST3" onclick="mostrarDivIngNST(4)" style="font-size: 25px; margin-left: 10px; cursor: pointer;" class="fa fa-plus-circle"></i>
 	     	 </div>
-	     	 <div id="divIng4" class="col-xs-12 form-group" style="display: none">
-				<label class="col-xs-2">Ingrediente 4:</label>
-				<input class="col-xs-3" type="text" name="ing4" id="ing4"/>
-				<i onclick="eliminarIng(4)" style="font-size: 25px; margin-left: 10px; cursor: pointer; color: red" class="fa fa-minus-circle"></i>
-				<i id="i4" onclick="mostrarDivIng(5)" style="font-size: 25px; margin-left: 10px; cursor: pointer;" class="fa fa-plus-circle"></i>
+	     	 <div id="divIngNST4" class="col-xs-12 form-group" style="display: none">
+				<label class="col-xs-3">Ingrediente 4:</label>
+				<input class="col-xs-3" type="text" name="ing4" id="ingNST4"/>
+				<i onclick="eliminarIngNST(4)" style="font-size: 25px; margin-left: 10px; cursor: pointer; color: red" class="fa fa-minus-circle"></i>
+				<i id="iNST4" onclick="mostrarDivIngNST(5)" style="font-size: 25px; margin-left: 10px; cursor: pointer;" class="fa fa-plus-circle"></i>
 	     	 </div>
-	     	 <div id="divIng5" class="col-xs-12 form-group" style="display: none">
-				<label class="col-xs-2">Ingrediente 5:</label>
-				<input class="col-xs-3" type="text" name="ing5" id="ing5"/>
-				<i onclick="eliminarIng(5)" style="font-size: 25px; margin-left: 10px; cursor: pointer; color: red" class="fa fa-minus-circle"></i>
-				<i id="i5" onclick="mostrarDivIng(6)" style="font-size: 25px; margin-left: 10px; cursor: pointer;" class="fa fa-plus-circle"></i>
+	     	 <div id="divIngNST5" class="col-xs-12 form-group" style="display: none">
+				<label class="col-xs-3">Ingrediente 5:</label>
+				<input class="col-xs-3" type="text" name="ing5" id="ingNST5"/>
+				<i onclick="eliminarIngNST(5)" style="font-size: 25px; margin-left: 10px; cursor: pointer; color: red" class="fa fa-minus-circle"></i>
+				<i id="iNST5" onclick="mostrarDivIngNST(6)" style="font-size: 25px; margin-left: 10px; cursor: pointer;" class="fa fa-plus-circle"></i>
 	     	 </div>
-	     	 <div id="divIng6" class="col-xs-12 form-group" style="display: none">
-				<label class="col-xs-2">Ingrediente 6:</label>
-				<input class="col-xs-3" type="text" name="ing6" id="ing6"/>
-				<i onclick="eliminarIng(6)" style="font-size: 25px; margin-left: 10px; cursor: pointer; color: red" class="fa fa-minus-circle"></i>
-				<i id="i6" onclick="mostrarDivIng(7)" style="font-size: 25px; margin-left: 10px; cursor: pointer;" class="fa fa-plus-circle"></i>
+	     	 <div id="divIngNST6" class="col-xs-12 form-group" style="display: none">
+				<label class="col-xs-3">Ingrediente 6:</label>
+				<input class="col-xs-3" type="text" name="ing6" id="ingNST6"/>
+				<i onclick="eliminarIngNST(6)" style="font-size: 25px; margin-left: 10px; cursor: pointer; color: red" class="fa fa-minus-circle"></i>
+				<i id="iNST6" onclick="mostrarDivIngNST(7)" style="font-size: 25px; margin-left: 10px; cursor: pointer;" class="fa fa-plus-circle"></i>
 	     	 </div>
-	     	 <div id="divIng7" class="col-xs-12 form-group" style="display: none">
-				<label class="col-xs-2">Ingrediente 7:</label>
-				<input class="col-xs-3" type="text" name="ing7" id="ing7"/>
-				<i onclick="eliminarIng(7)" style="font-size: 25px; margin-left: 10px; cursor: pointer; color: red" class="fa fa-minus-circle"></i>
-				<i id="i7" onclick="mostrarDivIng(8)" style="font-size: 25px; margin-left: 10px; cursor: pointer;" class="fa fa-plus-circle"></i>
+	     	 <div id="divIngNST7" class="col-xs-12 form-group" style="display: none">
+				<label class="col-xs-3">Ingrediente 7:</label>
+				<input class="col-xs-3" type="text" name="ing7" id="ingNST7"/>
+				<i onclick="eliminarIngNST(7)" style="font-size: 25px; margin-left: 10px; cursor: pointer; color: red" class="fa fa-minus-circle"></i>
+				<i id="iNST7" onclick="mostrarDivIngNST(8)" style="font-size: 25px; margin-left: 10px; cursor: pointer;" class="fa fa-plus-circle"></i>
 	     	 </div>
-	     	 <div id="divIng8" class="col-xs-12 form-group" style="display: none">
-				<label class="col-xs-2">Ingrediente 8:</label>
-				<input class="col-xs-3" type="text" name="ing8" id="ing8"/>
-				<i onclick="eliminarIng(8)" style="font-size: 25px; margin-left: 10px; cursor: pointer; color: red" class="fa fa-minus-circle"></i>
-	     		<i id="i8" onclick="mostrarDivIng(9)" style="font-size: 25px; margin-left: 10px; cursor: pointer;" class="fa fa-plus-circle"></i>	
+	     	 <div id="divIngNST8" class="col-xs-12 form-group" style="display: none">
+				<label class="col-xs-3">Ingrediente 8:</label>
+				<input class="col-xs-3" type="text" name="ing8" id="ingNST8"/>
+				<i onclick="eliminarIngNST(8)" style="font-size: 25px; margin-left: 10px; cursor: pointer; color: red" class="fa fa-minus-circle"></i>
+	     		<i id="iNST8" onclick="mostrarDivIngNST(9)" style="font-size: 25px; margin-left: 10px; cursor: pointer;" class="fa fa-plus-circle"></i>	
 	     	 </div>
-	     	 <div id="divIng9" class="col-xs-12 form-group" style="display: none">
-				<label class="col-xs-2">Ingrediente 9:</label>
-				<input class="col-xs-3" type="text" name="ing9" id="ing9"/>
-				<i onclick="eliminarIng(9)" style="font-size: 25px; margin-left: 10px; cursor: pointer; color: red" class="fa fa-minus-circle"></i>
-	     		<i id="i9" onclick="mostrarDivIng(10)" style="font-size: 25px; margin-left: 10px; cursor: pointer;" class="fa fa-plus-circle"></i>	
+	     	 <div id="divIngNST9" class="col-xs-12 form-group" style="display: none">
+				<label class="col-xs-3">Ingrediente 9:</label>
+				<input class="col-xs-3" type="text" name="ing9" id="ingNST9"/>
+				<i onclick="eliminarIngNST(9)" style="font-size: 25px; margin-left: 10px; cursor: pointer; color: red" class="fa fa-minus-circle"></i>
+	     		<i id="iNST9" onclick="mostrarDivIngNST(10)" style="font-size: 25px; margin-left: 10px; cursor: pointer;" class="fa fa-plus-circle"></i>	
 	     	 </div>
-	     	 <div id="divIng10" class="col-xs-12 form-group" style="display: none">
-				<label class="col-xs-2">Ingrediente 10:</label>
-				<input class="col-xs-3" type="text" name="ing10" id="ing10"/>
-				<i id="i10" onclick="eliminarIng(10)" style="font-size: 25px; margin-left: 10px; cursor: pointer; color: red" class="fa fa-minus-circle"></i>
+	     	 <div id="divIngNSTNST10" class="col-xs-12 form-group" style="display: none">
+				<label class="col-xs-3">Ingrediente 10:</label>
+				<input class="col-xs-3" type="text" name="ing10" id="ingNST10"/>
+				<i id="iNST10" onclick="eliminarIngNST(10)" style="font-size: 25px; margin-left: 10px; cursor: pointer; color: red" class="fa fa-minus-circle"></i>
 	     	 </div>
 	     	 <div class="col-xs-12 ">
 	     	 	<span onclick="mostrarPaso(2);" class="btn btn-primary" style="float: right; font-size: 20px;">Continuar</span>
@@ -107,19 +107,19 @@
 		  </div>
 		  <div class="panel-body">
 			  <div class="col-xs-12">
-			  	<select id="selectTipoTrago" multiple="multiple" name="tipos">
-					    <option value="Frutado">Frutado</option>
-					    <option value="Fuerte">Fuerte</option>
-					    <option value="Suave">Suave</option>
-					    <option value="Seco">Seco</option>
-					    <option value="Fresco">Fresco</option>
-					    <option value="Aperitivo">Aperitivo</option>
-					    <option value="Largo">Largo</option>
-					    <option value="Corto">Corto</option>
-					    <option value="Frío">Frío</option>
-					    <option value="Caliente">Caliente</option>
-					</select>
-					<label>&nbsp;*Dejar en blanco para no filtrar</label>
+			  	<select id="selectTipoTrago2" multiple="multiple" name="tipos">
+				    <option value="Frutado">Frutado</option>
+				    <option value="Fuerte">Fuerte</option>
+				    <option value="Suave">Suave</option>
+				    <option value="Seco">Seco</option>
+				    <option value="Fresco">Fresco</option>
+				    <option value="Aperitivo">Aperitivo</option>
+				    <option value="Largo">Largo</option>
+				    <option value="Corto">Corto</option>
+				    <option value="Frío">Frío</option>
+				    <option value="Caliente">Caliente</option>
+				</select>
+				<label>&nbsp;*Dejar en blanco para no filtrar</label>
 			  </div>
 	     	 <div class="col-xs-12">
 	     	 	<span onclick="queTomar();" class="btn btn-success" style="float: right;">¡Salud!</span>
@@ -158,7 +158,7 @@
 	
 	<script>
 	$(document).ready(function() {
-		  $('#selectTipoTrago').multiselect({
+		  $('#selectTipoTrago2').multiselect({
 			 	nonSelectedText: 'Seleccione',
 	            allSelectedText: 'Todos',
 	            nSelectedText: ' seleccionados',
@@ -169,11 +169,22 @@
 	$.validator.messages.min = "Valor entre 0 y 100";
 	$.validator.messages.max = "Valor entre 0 y 100";
 	$.validator.messages.required = "Este campo es requerido";
+		
+		
+		function mostrarDivIngNST(id){
+			$("#divIngNST"+id).show();
+			var i = id-1;
+			$("#iNST"+i).hide();
+			$("#ingNST"+id).prop('disabled', false);
+			$("#ingNST"+id).focus();
+		}	
 	
-		function eliminarIngrediente(id){
-			$("#divIng"+id).hide();
-			$("#ing"+id).val(null);
-			$("#medIng"+id).val(null);
+		function eliminarIngNST(id){
+			$("#divIngNST"+id).hide();
+			var i = id-1;
+			$("#iNST"+i).show();
+			$("#ingNST"+id).prop('disabled', true);
+			$("#ingNST"+id).val(null);
 		}
 		
 		function volverPaso(paso){

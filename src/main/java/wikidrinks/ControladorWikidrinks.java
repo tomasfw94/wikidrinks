@@ -107,18 +107,6 @@ public class ControladorWikidrinks {
    }
    
    
-//   @RequestMapping(value = "/loguear-usuario", produces = "text/plain")
-//   @ResponseBody
-//   public String loguearUsuario(@RequestParam String userMail, @RequestParam String pass, HttpSession session) throws JsonGenerationException, JsonMappingException, IOException{
-//	   Usuario user = usuarioRepository.findByUsername(userMail);
-//	   if(user == null) {
-//		   user = usuarioRepository.findByMail(userMail);
-//	   }
-//	   ObjectMapper mapper = new ObjectMapper();
-//	   String jsonUser = mapper.writeValueAsString(user);
-//	   return jsonUser;
-//   }
-   
 	@RequestMapping("/inicial")
 	public String pantallaInicial(@CookieValue(name = "idUser", required = false) Integer idUser, Model model){
 		model.addAttribute("loggedUser", usuarioRepository.findById(idUser));
@@ -151,6 +139,10 @@ public class ControladorWikidrinks {
 	@ResponseBody
 	public String guardarTrago(@CookieValue(name = "idUser", required = false) Integer idUser, @RequestBody TragoDTO tragoDto) {
 		Trago trago = tragoDto.getTrago();
+		
+		if(!tragoDto.esMedidaValida()) {
+			return "La suma de las medidas no puede superar el 100%";
+		}
 		
 		Usuario u = usuarioRepository.findById(idUser);
 		trago.setUsuario(u);
@@ -249,7 +241,7 @@ public class ControladorWikidrinks {
 						tiposOk = true;
 					}else {
 						for (String tipoDTO : tragoDto.getTipos()) {
-							if(trago.getNombreTipos().contains(tipoDTO)) {
+							if(trago.getNombreTipos().contains(tipoDTO.toUpperCase().trim())) {
 								tiposOk = true;
 								break;
 							}
@@ -259,11 +251,11 @@ public class ControladorWikidrinks {
 						double cantIngTrago = trago.getIngredientes().size();
 						double cantIngCoincidencias = 0;
 						for (String ingDto : tragoDto.getNombresIngredientesDTO()) {
-							if(trago.getNombresIngredientes().contains(ingDto)) {
+							if(trago.getNombresIngredientes().contains(ingDto.toUpperCase().replaceAll("\\s",""))) {
 								cantIngCoincidencias++;
 							}
 						}
-						if(cantIngCoincidencias/cantIngTrago > 0.6) {
+						if(cantIngCoincidencias/cantIngTrago >= 0.5) {
 							tragosReturn.add(trago);
 						}
 					}

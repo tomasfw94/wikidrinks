@@ -7,16 +7,6 @@
 </head>
 <body>
   <div th:replace="header"></div>
-<!--   <div class="container" th:if="${loggedUser != null}"> -->
-<!--     <div onclick="listaTragos();" class="col-md-4 panel panel-default" style="background-color: #5cb85c;border-color: #4cae4c;"> -->
-<!--     	<i class="glyphicon glyphicon-glass"></i> -->
-<!-- 		<label>Tragos</label> -->
-<!-- 	</div> -->
-<!-- 	<div class="col-md-4 panel panel-default" style="background-color: #5bc0de;border-color: #46b8da;">   -->
-<!-- 		<i class="fa fa-users"></i> -->
-<!-- 		<label>Usuarios</label> -->
-<!-- 	</div> -->
-<!--   </div> -->
   <div class=".panel-default"  style="text-align: center; font-size: 20px" th:if="${loggedUser == null}" ><label>Regístrese o Inicie Sesión</label></div>
   <div style="text-align: center">
 	<img src="https://images.clarin.com/2015/03/21/Byj7YWJNg_930x525.jpg"></img>
