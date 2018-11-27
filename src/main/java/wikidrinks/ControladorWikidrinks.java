@@ -165,7 +165,15 @@ public class ControladorWikidrinks {
 	public String eliminarTrago(@RequestParam Integer idTrago){
 		Trago t = tragoRepository.findById(idTrago);
 		t.setActivo(false);
+		tragoRepository.save(t);
 		return "OK";
+	}
+	
+	@RequestMapping("/pasos-trago")
+	public String pasosTrago(@RequestParam Integer idTrago, Model model){
+		Trago trago = tragoRepository.findById(idTrago);
+		model.addAttribute("trago", trago);
+		return "pasosModal";
 	}
 	
 	@RequestMapping("/consejos-trago")
@@ -199,7 +207,7 @@ public class ControladorWikidrinks {
 		p.setPuntuacion(puntuacion);
 		t.getPuntuaciones().add(p);
 		tragoRepository.save(t);
-		return "OK";
+		return t.getPuntuacion().toString();
 	}
 	
 	
