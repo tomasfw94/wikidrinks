@@ -7,7 +7,7 @@
 			<h2 style="margin-top: 0px">Tragos recomendados para vos</h2>
 			<hr style="border-top:3px solid #6e6b6b; margin-top: 10px;"></hr>
 		</div>
-		<div style="font-size: 20px" th:if="${tragos.empty}">¡No encontramos Tragos! Creá uno vos para que otros lo puedan disfrutar.</div>
+		<div style="font-size: 20px" th:if="${tragos.empty}">¡No encontramos Tragos! Creá uno para que otros lo puedan disfrutar.</div>
 	
 		<div class="col-xs-4 panel panel-default" th:each="trago : ${tragos}" style="padding-left: 0px; min-height:370px ">
 			<h3 th:inline="text" style="text-align: center; margin-top: 10px">[[${trago.nombre}]] <small th:if="${trago.tragoAutor}">(Trago de autor)</small></h3>
@@ -23,7 +23,7 @@
 					<button type="button" class="btn btn-primary btn-sm col-xs-3" th:if="${loggedUser.id == trago.usuario.id}" style="margin: 0 10px 10px 0" title="Editar" th:onclick="'editarTrago(\'' + ${trago.id} + '\');'">
 						<i class="fa fa-pencil"></i>
 					</button>
-					<button type="button" class="btn btn-primary btn-sm col-xs-3" title="Ver pasos" style="margin: 0 10px 10px 0">
+					<button type="button" class="btn btn-primary btn-sm col-xs-3" title="Ver pasos" style="margin: 0 10px 10px 0" th:onclick="'pasosTrago(\'' + ${trago.id} + '\');'">
 						<i class="fa fa-list-ul"></i>
 					</button>
 					<button type="button" class="btn btn-primary btn-sm col-xs-3" title="Consejos" style="margin: 0 10px 10px 0" th:onclick="'consejosTrago(\'' + ${trago.id} + '\');'">
@@ -46,19 +46,20 @@
 			<div class="col-xs-6">
 				<p>Vaso recomendado: <label th:text="${trago.vaso}"></label></p>
 				<p>Graduación: <label th:text="${trago.graduacion}+'%'"></label></p>
-				<p>Puntuación: <label th:text="${trago.puntuacion}"></label></p>
+				<p th:id="'pPuntuacion' + ${trago.id}">Puntuación: <label th:id="'labelPuntuacion' + ${trago.id}" th:text="${trago.puntuacion}"></label></p>
 				<p>Ingredientes:</p>
 				<p style="margin: 0" th:each="ingrediente:${trago.ingredientes}"><label th:text="${ingrediente.medida}+'% '+${ingrediente.nombre}"></label></p>
 			</div>
 		</div>
 		<div id="divEditarModal"></div>
 		<div id="divConsejosModal"></div>
+		<div id="divPasosModal"></div>
 	</body>
 	
 	<script type="text/javascript">
+	
 	$.validator.messages.min = "Valor entre 0 y 10";
 	$.validator.messages.max = "Valor entre 0 y 10";
-	
 	$.validator.messages.required = "Este campo es requerido";
 	
 	function mostrarPuntuarTrago(id){
@@ -74,9 +75,10 @@
 			    url: "/agregar-puntuacion/",
 				data: $("#formPuntuarTrago"+id).serialize(),
 			    success: function (data) {
-			    	if(data == "OK"){
-			    		alert("¡Gracias por dejar tu opinión!");
-			    	}
+		    		alert("¡Gracias por dejar tu opinión!");
+		    		$('#pPuntuacion'+id).hide('fast');
+		            $('#pPuntuacion'+id).show('fast');
+		    		$("#labelPuntuacion"+id).text(data);
 			    }
 			});
 		}
@@ -90,6 +92,18 @@
 		    success: function (data) {
 		    	$("#divConsejosModal").html(data);
 		    	$("#consejosModal").modal();
+		    }
+		});
+	}
+	
+	function pasosTrago(id){
+		$.ajax({
+		    type: 'POST',
+		    url: "/pasos-trago/",
+		    data: "idTrago="+id,
+		    success: function (data) {
+		    	$("#divPasosModal").html(data);
+		    	$("#pasosModal").modal();
 		    }
 		});
 	}

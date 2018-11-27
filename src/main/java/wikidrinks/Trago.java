@@ -57,6 +57,9 @@ public class Trago {
     
     @OneToMany(cascade = CascadeType.ALL)
     private List<TipoTrago> tipos = new ArrayList<>();
+    
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<PasoTrago> pasos = new ArrayList<>();
 
 	public Integer getId() {
 		return id;
@@ -228,5 +231,13 @@ public class Trago {
 		}
 		
 		return nombres;
+	}
+
+	public List<PasoTrago> getPasos() {
+		return pasos;
+	}
+
+	public void setPasos(List<PasoTrago> pasos) {
+		this.pasos = pasos;
 	}
 }

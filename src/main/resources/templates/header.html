@@ -41,7 +41,7 @@
 			            <li class="col-xs-12" style="height: 25px"><label>USUARIO/EMAIL</label></li>
 			            <li class="col-xs-12 form-group" style="height: 25px"><input type="text" name="userMail"/></li>
 			            <li class="col-xs-12" style="height: 25px"><label>CONTRASEÑA</label></li>
-			            <li class="col-xs-12 form-group" style="height: 25px"><input type="password" name="pass"/></li>
+			            <li class="col-xs-12 form-group" style="height: 25px"><input id="passLogin" type="password" name="pass"/></li>
 			            <li style="text-align: center;"><span onclick="logIn()" class="btn btn-primary">Iniciar sesión</span></li>
 		          	</ul>
                 </li>
@@ -73,100 +73,169 @@
 	          <span aria-hidden="true">&times;</span>
 	        </button>
 	      </div>
-	      <div class="modal-body" style="font-size: 15px; float: right;">
-	     	 <form id="formTrago">
-	     	 <div class="col-xs-12 form-group">
-				<label class="col-xs-4">Nombre:</label> 
-				<input type="text" name="nombre" style="float: left" required="required"/>
-				<input type="checkbox" name="deAutor" value="false" style="float:left; margin-left: 10px;"/>
-				<label class="col-xs-3">Trago de autor</label> 
-	     	 </div>
-	     	 <div class="col-xs-12 form-group">
-				<label class="col-xs-4">Vaso recomendado:</label>
-				<input type="text" name="vaso" required="required"/>
-	     	 </div>
-	     	 <div class="col-xs-12 form-group">
-				<label class="col-xs-4">Graduación:</label>
-				<input type="number" name="graduacion" required="required" min="0" max="100"/>
-	     	 </div>
-	     	 <div class="col-xs-12 form-group">
-				<label class="col-xs-4">Características:</label>
-				<select id="selectTipoTrago" multiple="multiple" name="tipos">
-				    <option value="Frutado">Frutado</option>
-				    <option value="Fuerte">Fuerte</option>
-				    <option value="Suave">Suave</option>
-				    <option value="Seco">Seco</option>
-				    <option value="Fresco">Fresco</option>
-				    <option value="Aperitivo">Aperitivo</option>
-				    <option value="Largo">Largo</option>
-				    <option value="Corto">Corto</option>
-				    <option value="Frío">Frío</option>
-				    <option value="Caliente">Caliente</option>
-				</select>
-	     	 </div>
-	     	 <div class="col-xs-12 form-group">
-				<label class="col-xs-3">URL imagen:</label>
-				<input class="col-xs-9" type="text" name="urlImagen"/>
-	     	 </div>
-	     	 <div id="divIng1" class="col-xs-12 form-group">
-				<label class="col-xs-3">Ingrediente 1:</label>
-				<input class="col-xs-3" type="text" name="ing1" required="required"/>
-				<label class="col-xs-2" style="width: 20%">Medida (%):</label>
-				<input class="col-xs-2" type="number" name="medIng1" required="required" min="0" max="100"/>
-				<i id="i1" onclick="mostrarDivIng(2)" style="font-size: 25px; margin-left: 10px; cursor: pointer;" class="fa fa-plus-circle"></i>
-	     	 </div>
-	     	 <div id="divIng2" class="col-xs-12 form-group" style="display: none">
-				<label class="col-xs-3">Ingrediente 2:</label>
-				<input class="col-xs-3" type="text" name="ing2" id="ing2"/>
-				<label class="col-xs-2" style="width: 20%">Medida (%):</label>
-				<input class="col-xs-2" type="number" name="medIng2" id="medIng2" min="0" max="100"/>
-				<i onclick="eliminarIng(2)" style="font-size: 25px; margin-left: 10px; cursor: pointer; color: red" class="fa fa-minus-circle"></i>
-				<i id="i2" onclick="mostrarDivIng(3)" style="font-size: 25px; margin-left: 10px; cursor: pointer;" class="fa fa-plus-circle"></i>
-	     	 </div>
-	     	 <div id="divIng3" class="col-xs-12 form-group" style="display: none">
-				<label class="col-xs-3">Ingrediente 3:</label>
-				<input class="col-xs-3" type="text" name="ing3" id="ing3"/>
-				<label class="col-xs-2" style="width: 20%">Medida (%):</label>
-				<input class="col-xs-2" type="number" name="medIng3" id="medIng3" min="0" max="100"/>
-				<i onclick="eliminarIng(3)" style="font-size: 25px; margin-left: 10px; cursor: pointer; color: red" class="fa fa-minus-circle"></i>
-				<i id="i3" onclick="mostrarDivIng(4)" style="font-size: 25px; margin-left: 10px; cursor: pointer;" class="fa fa-plus-circle"></i>
-	     	 </div>
-	     	 <div id="divIng4" class="col-xs-12 form-group" style="display: none">
-				<label class="col-xs-3">Ingrediente 4:</label>
-				<input class="col-xs-3" type="text" name="ing4" id="ing4"/>
-				<label class="col-xs-2" style="width: 20%">Medida (%):</label>
-				<input class="col-xs-2" type="number" name="medIng4" id="medIng4" min="0" max="100"/>
-				<i onclick="eliminarIng(4)" style="font-size: 25px; margin-left: 10px; cursor: pointer; color: red" class="fa fa-minus-circle"></i>
-				<i id="i4" onclick="mostrarDivIng(5)" style="font-size: 25px; margin-left: 10px; cursor: pointer;" class="fa fa-plus-circle"></i>
-	     	 </div>
-	     	 <div id="divIng5" class="col-xs-12 form-group" style="display: none">
-				<label class="col-xs-3">Ingrediente 5:</label>
-				<input class="col-xs-3" type="text" name="ing5" id="ing5"/>
-				<label class="col-xs-2" style="width: 20%">Medida (%):</label>
-				<input class="col-xs-2" type="number" name="medIng5" id="medIng5" min="0" max="100"/>
-				<i onclick="eliminarIng(5)" style="font-size: 25px; margin-left: 10px; cursor: pointer; color: red" class="fa fa-minus-circle"></i>
-				<i id="i5" onclick="mostrarDivIng(6)" style="font-size: 25px; margin-left: 10px; cursor: pointer;" class="fa fa-plus-circle"></i>
-	     	 </div>
-	     	 <div id="divIng6" class="col-xs-12 form-group" style="display: none">
-				<label class="col-xs-3">Ingrediente 6:</label>
-				<input class="col-xs-3" type="text" name="ing6" id="ing6"/>
-				<label class="col-xs-2" style="width: 20%">Medida (%):</label>
-				<input class="col-xs-2" type="number" name="medIng6" id="medIng6" min="0" max="100"/>
-				<i onclick="eliminarIng(6)" style="font-size: 25px; margin-left: 10px; cursor: pointer; color: red" class="fa fa-minus-circle"></i>
-				<i id="i6" onclick="mostrarDivIng(7)" style="font-size: 25px; margin-left: 10px; cursor: pointer;" class="fa fa-plus-circle"></i>
-	     	 </div>
-	     	 <div id="divIng7" class="col-xs-12 form-group" style="display: none">
-				<label class="col-xs-3">Ingrediente 7:</label>
-				<input class="col-xs-3" type="text" name="ing7" id="ing7"/>
-				<label class="col-xs-2" style="width: 20%">Medida (%):</label>
-				<input class="col-xs-2" type="number" name="medIng7" id="medIng7" min="0" max="100"/>
-				<i id="i7" onclick="eliminarIng(7)" style="font-size: 25px; margin-left: 10px; cursor: pointer; color: red" class="fa fa-minus-circle"></i>
-	     	 </div>
+	      <div class="modal-body col-xs-12" style="font-size: 15px;">
+	     	 <form id="formNuevoTrago">
+	     	 <div id="nuevoTragoPaso1">
+		     	 <div class="col-xs-12 form-group">
+					<label class="col-xs-4">Nombre:</label> 
+					<input type="text" name="nombre" style="float: left" required="required"/>
+		     	 </div>
+		     	 <div class="col-xs-12 form-group">
+					<label class="col-xs-4">Trago de autor</label> 
+					<input type="checkbox" name="deAutor" value="false" style="float:left;"/>
+		     	 </div>
+		     	 <div class="col-xs-12 form-group">
+					<label class="col-xs-4">Vaso recomendado:</label>
+					<input type="text" name="vaso" required="required"/>
+		     	 </div>
+		     	 <div class="col-xs-12 form-group">
+					<label class="col-xs-4">Graduación (0 a 100%):</label>
+					<input type="number" name="graduacion" required="required" min="0" max="100"/>
+		     	 </div>
+		     	 <div class="col-xs-12 form-group">
+					<label class="col-xs-4">Características:</label>
+					<select id="selectTipoTrago" multiple="multiple" name="tipos">
+					    <option value="Frutado">Frutado</option>
+					    <option value="Fuerte">Fuerte</option>
+					    <option value="Suave">Suave</option>
+					    <option value="Seco">Seco</option>
+					    <option value="Fresco">Fresco</option>
+					    <option value="Aperitivo">Aperitivo</option>
+					    <option value="Largo">Largo</option>
+					    <option value="Corto">Corto</option>
+					    <option value="Frío">Frío</option>
+					    <option value="Caliente">Caliente</option>
+					</select>
+		     	 </div>
+		     	 <div class="col-xs-12 form-group">
+					<label class="col-xs-3">URL imagen:</label>
+					<input class="col-xs-9" type="text" name="urlImagen"/>
+		     	 </div>
+		     	 <div id="divIng1" class="col-xs-12 form-group">
+					<label class="col-xs-3">Ingrediente 1:</label>
+					<input class="col-xs-9" type="text" name="ing1" required="required"/>
+					<div style="margin-top: 10px; width: 100%; float: left;">
+						<label class="col-xs-3">Medida (%):</label>
+						<input class="col-xs-6" type="number" name="medIng1" required="required" min="0" max="100"/>
+						<i id="i1" onclick="mostrarDivIng(2)" style="font-size: 25px; margin-left: 10px; cursor: pointer;" class="fa fa-plus-circle"></i>
+					</div>
+		     	 </div>
+		     	 <div id="divIng2" class="col-xs-12 form-group" style="display: none">
+					<label class="col-xs-3">Ingrediente 2:</label>
+					<input class="col-xs-3" type="text" name="ing2" id="ing2"/>
+					<label class="col-xs-2" style="width: 20%">Medida (%):</label>
+					<input class="col-xs-2" type="number" name="medIng2" id="medIng2" min="0" max="100"/>
+					<i onclick="eliminarIng(2)" style="font-size: 25px; margin-left: 10px; cursor: pointer; color: red" class="fa fa-minus-circle"></i>
+					<i id="i2" onclick="mostrarDivIng(3)" style="font-size: 25px; margin-left: 10px; cursor: pointer;" class="fa fa-plus-circle"></i>
+		     	 </div>
+		     	 <div id="divIng3" class="col-xs-12 form-group" style="display: none">
+					<label class="col-xs-3">Ingrediente 3:</label>
+					<input class="col-xs-3" type="text" name="ing3" id="ing3"/>
+					<label class="col-xs-2" style="width: 20%">Medida (%):</label>
+					<input class="col-xs-2" type="number" name="medIng3" id="medIng3" min="0" max="100"/>
+					<i onclick="eliminarIng(3)" style="font-size: 25px; margin-left: 10px; cursor: pointer; color: red" class="fa fa-minus-circle"></i>
+					<i id="i3" onclick="mostrarDivIng(4)" style="font-size: 25px; margin-left: 10px; cursor: pointer;" class="fa fa-plus-circle"></i>
+		     	 </div>
+		     	 <div id="divIng4" class="col-xs-12 form-group" style="display: none">
+					<label class="col-xs-3">Ingrediente 4:</label>
+					<input class="col-xs-3" type="text" name="ing4" id="ing4"/>
+					<label class="col-xs-2" style="width: 20%">Medida (%):</label>
+					<input class="col-xs-2" type="number" name="medIng4" id="medIng4" min="0" max="100"/>
+					<i onclick="eliminarIng(4)" style="font-size: 25px; margin-left: 10px; cursor: pointer; color: red" class="fa fa-minus-circle"></i>
+					<i id="i4" onclick="mostrarDivIng(5)" style="font-size: 25px; margin-left: 10px; cursor: pointer;" class="fa fa-plus-circle"></i>
+		     	 </div>
+		     	 <div id="divIng5" class="col-xs-12 form-group" style="display: none">
+					<label class="col-xs-3">Ingrediente 5:</label>
+					<input class="col-xs-3" type="text" name="ing5" id="ing5"/>
+					<label class="col-xs-2" style="width: 20%">Medida (%):</label>
+					<input class="col-xs-2" type="number" name="medIng5" id="medIng5" min="0" max="100"/>
+					<i onclick="eliminarIng(5)" style="font-size: 25px; margin-left: 10px; cursor: pointer; color: red" class="fa fa-minus-circle"></i>
+					<i id="i5" onclick="mostrarDivIng(6)" style="font-size: 25px; margin-left: 10px; cursor: pointer;" class="fa fa-plus-circle"></i>
+		     	 </div>
+		     	 <div id="divIng6" class="col-xs-12 form-group" style="display: none">
+					<label class="col-xs-3">Ingrediente 6:</label>
+					<input class="col-xs-3" type="text" name="ing6" id="ing6"/>
+					<label class="col-xs-2" style="width: 20%">Medida (%):</label>
+					<input class="col-xs-2" type="number" name="medIng6" id="medIng6" min="0" max="100"/>
+					<i onclick="eliminarIng(6)" style="font-size: 25px; margin-left: 10px; cursor: pointer; color: red" class="fa fa-minus-circle"></i>
+					<i id="i6" onclick="mostrarDivIng(7)" style="font-size: 25px; margin-left: 10px; cursor: pointer;" class="fa fa-plus-circle"></i>
+		     	 </div>
+		     	 <div id="divIng7" class="col-xs-12 form-group" style="display: none">
+					<label class="col-xs-3">Ingrediente 7:</label>
+					<input class="col-xs-3" type="text" name="ing7" id="ing7"/>
+					<label class="col-xs-2" style="width: 20%">Medida (%):</label>
+					<input class="col-xs-2" type="number" name="medIng7" id="medIng7" min="0" max="100"/>
+					<i id="i7" onclick="eliminarIng(7)" style="font-size: 25px; margin-left: 10px; cursor: pointer; color: red" class="fa fa-minus-circle"></i>
+		     	 </div>
+	     	  </div>
+	     	  <div id="nuevoTragoPaso2" style="display: none;">
+	     	  
+     	      	 <div id="divPasoNT1" class="col-xs-12 form-group">
+					<label class="col-xs-12">Paso 1:</label>
+					<textarea id="textoPaso1" name="textoPaso1" style="width: 100%" form="formNuevoTrago" required="required"></textarea>
+					<label style="float: right; cursor: pointer;"><i id="nt1" onclick="mostrarPasoNT(2)" style="font-size: 20px; margin-left: 10px;" class="fa fa-plus-circle"></i></label>
+		     	 </div>
+     	      	 <div id="divPasoNT2" class="col-xs-12 form-group" style="display: none;">
+					<label class="col-xs-12">Paso 2:</label>
+					<textarea id="textoPaso2" name="textoPaso2" style="width: 100%" form="formNuevoTrago"></textarea>
+					<label style="float: right; cursor: pointer;"><i id="nt2" onclick="mostrarPasoNT(3)" style="font-size: 20px; margin-left: 10px;" class="fa fa-plus-circle"></i></label>
+					<label style="float: right; cursor: pointer; color: red"><i onclick="eliminarPasoNT(2)" style="font-size: 20px; margin-left: 10px;" class="fa fa-minus-circle"></i></label>
+		     	 </div>
+     	      	 <div id="divPasoNT3" class="col-xs-12 form-group" style="display: none;">
+					<label class="col-xs-12">Paso 3:</label>
+					<textarea id="textoPaso3" name="textoPaso3" style="width: 100%" form="formNuevoTrago"></textarea>
+					<label style="float: right; cursor: pointer;"><i id="nt3" onclick="mostrarPasoNT(4)" style="font-size: 20px; margin-left: 10px;" class="fa fa-plus-circle"></i></label>
+					<label style="float: right; cursor: pointer; color: red"><i onclick="eliminarPasoNT(3)" style="font-size: 20px; margin-left: 10px;" class="fa fa-minus-circle"></i></label>
+		     	 </div>
+     	      	 <div id="divPasoNT4" class="col-xs-12 form-group" style="display: none;">
+					<label class="col-xs-12">Paso 4:</label>
+					<textarea id="textoPaso4" name="textoPaso4" style="width: 100%" form="formNuevoTrago"></textarea>
+					<label style="float: right; cursor: pointer;"><i id="nt4" onclick="mostrarPasoNT(5)" style="font-size: 20px; margin-left: 10px;" class="fa fa-plus-circle"></i></label>
+					<label style="float: right; cursor: pointer; color: red"><i onclick="eliminarPasoNT(4)" style="font-size: 20px; margin-left: 10px;" class="fa fa-minus-circle"></i></label>
+		     	 </div>
+     	      	 <div id="divPasoNT5" class="col-xs-12 form-group" style="display: none;">
+					<label class="col-xs-12">Paso 5:</label>
+					<textarea id="textoPaso5" name="textoPaso4" style="width: 100%" form="formNuevoTrago"></textarea>
+					<label style="float: right; cursor: pointer;"><i id="nt5" onclick="mostrarPasoNT(6)" style="font-size: 20px; margin-left: 10px;" class="fa fa-plus-circle"></i></label>
+					<label style="float: right; cursor: pointer; color: red"><i onclick="eliminarPasoNT(5)" style="font-size: 20px; margin-left: 10px;" class="fa fa-minus-circle"></i></label>
+		     	 </div>
+     	      	 <div id="divPasoNT6" class="col-xs-12 form-group" style="display: none;">
+					<label class="col-xs-12">Paso 6:</label>
+					<textarea id="textoPaso6" name="textoPaso5" style="width: 100%" form="formNuevoTrago"></textarea>
+					<label style="float: right; cursor: pointer;"><i id="nt6" onclick="mostrarPasoNT(7)" style="font-size: 20px; margin-left: 10px;" class="fa fa-plus-circle"></i></label>
+					<label style="float: right; cursor: pointer; color: red"><i onclick="eliminarPasoNT(6)" style="font-size: 20px; margin-left: 10px;" class="fa fa-minus-circle"></i></label>
+		     	 </div>
+     	      	 <div id="divPasoNT7" class="col-xs-12 form-group" style="display: none;">
+					<label class="col-xs-12">Paso 7:</label>
+					<textarea id="textoPaso7" name="textoPaso7" style="width: 100%" form="formNuevoTrago"></textarea>
+					<label style="float: right; cursor: pointer;"><i id="nt7" onclick="mostrarPasoNT(8)" style="font-size: 20px; margin-left: 10px;" class="fa fa-plus-circle"></i></label>
+					<label style="float: right; cursor: pointer; color: red"><i onclick="eliminarPasoNT(7)" style="font-size: 20px; margin-left: 10px;" class="fa fa-minus-circle"></i></label>
+		     	 </div>
+     	      	 <div id="divPasoNT8" class="col-xs-12 form-group" style="display: none;">
+					<label class="col-xs-12">Paso 8:</label>
+					<textarea id="textoPaso8" name="textoPaso8" style="width: 100%" form="formNuevoTrago"></textarea>
+					<label style="float: right; cursor: pointer;"><i id="nt8" onclick="mostrarPasoNT(9)" style="font-size: 20px; margin-left: 10px;" class="fa fa-plus-circle"></i></label>
+					<label style="float: right; cursor: pointer; color: red"><i onclick="eliminarPasoNT(8)" style="font-size: 20px; margin-left: 10px;" class="fa fa-minus-circle"></i></label>
+		     	 </div>
+     	      	 <div id="divPasoNT9" class="col-xs-12 form-group" style="display: none;">
+					<label class="col-xs-12">Paso 9:</label>
+					<textarea id="textoPaso9" name="textoPaso9" style="width: 100%" form="formNuevoTrago"></textarea>
+					<label style="float: right; cursor: pointer;"><i id="nt9" onclick="mostrarPasoNT(10)" style="font-size: 20px; margin-left: 10px;" class="fa fa-plus-circle"></i></label>
+					<label style="float: right; cursor: pointer; color: red"><i onclick="eliminarPasoNT(9)" style="font-size: 20px; margin-left: 10px;" class="fa fa-minus-circle"></i></label>
+		     	 </div>
+     	      	 <div id="divPasoNT10" class="col-xs-12 form-group" style="display: none;">
+					<label class="col-xs-12">Paso 10:</label>
+					<textarea id="textoPaso10" name="textoPaso10" style="width: 100%" form="formNuevoTrago"></textarea>
+					<label style="float: right; cursor: pointer; color: red"><i onclick="eliminarPasoNT(10)" style="font-size: 20px; margin-left: 10px;" class="fa fa-minus-circle"></i></label>
+		     	 </div>
+	     	  </div>
 			</form>
 	      </div>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-	        <button type="button" class="btn btn-primary" onclick="crearTrago();">Crear trago</button>
+	        <button type="button" id="botonContinuar" class="btn btn-primary" onclick="continuarNuevoTrago();">Continuar</button>
+	        <button type="button" id="botonVolver" class="btn btn-primary" style="display: none;" onclick="volverNuevoTrago();">Volver</button>
+	        <button type="button" id="botonCrearTrago" class="btn btn-primary" style="display: none;" onclick="crearTrago();">Crear trago</button>
 	      </div>
 	    </div>
 	  </div>
@@ -175,7 +244,7 @@
 <script>
 $(document).ready(function() {
 	  $('#selectTipoTrago').multiselect({
-		 	nonSelectedText: 'Seleccione',
+		  nonSelectedText: 'Seleccione',
           allSelectedText: 'Todos',
           nSelectedText: ' seleccionados'
     });
@@ -224,9 +293,28 @@ function mostrarPerfil(id){
 	window.location.href = "http://localhost:8080/perfil/"+id
 }
 
+function continuarNuevoTrago(){
+	if($("#formNuevoTrago").valid()){
+		$("#nuevoTragoPaso1").fadeOut();
+		$("#nuevoTragoPaso2").fadeIn();
+		$("#botonContinuar").hide();
+		$("#botonVolver").show();
+		$("#botonCrearTrago").show();
+	}
+}
+function volverNuevoTrago(){
+	$("#nuevoTragoPaso1").fadeIn();
+	$("#nuevoTragoPaso2").fadeOut();
+	$("#botonContinuar").show();
+	$("#botonVolver").hide();
+	$("#botonCrearTrago").hide();
+}
+
+
+
 function crearTrago(){
-	if($("#formTrago").valid()){
-		var formJqObj = $("#formTrago");
+	if($("#formNuevoTrago").validate()){
+		var formJqObj = $("#formNuevoTrago");
 	    var formDataObj = {};
 	    (function(){
 	        formJqObj.find(":input").not("[type='submit']").not("[type='reset']").each(function(){
@@ -234,7 +322,7 @@ function crearTrago(){
 	            formDataObj[thisInput.attr("name")] = thisInput.val();
 	        });
 	    })();
-		
+		 
 		$.ajax({
 		    type: 'POST',
 		    url: "/guardar-trago/",
@@ -251,6 +339,27 @@ function crearTrago(){
 		});
 	}
 }
+
+$("#passLogin").on('keyup', function (e) {
+    if (e.keyCode == 13) {
+    	logIn();
+    }
+});
+
+function mostrarPasoNT(paso){
+	$("#divPasoNT"+paso).show();
+	$("#textoPaso"+paso).prop('disabled', false);
+	var i = paso-1;
+	$("#nt"+i).hide();
+}
+
+function eliminarPasoNT(paso){
+	$("#divPasoNT"+paso).hide();
+	$("#textoPaso"+paso).prop('disabled', true);
+	var i = paso-1;
+	$("#nt"+i).show();
+}
+
 
 </script>
 
